@@ -1,0 +1,2 @@
+Each of the tagged files in BAD1DATA is built individually, then combined in
+bad1data.s to form an archive.

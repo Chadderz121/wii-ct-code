@@ -1,0 +1,31 @@
+CT-CODE game modification engine.
+Copyright (C) 2011-2014 Alex "Chadderz" Chadwick
+Copyright (C) 2011-2014 Robert "MrBean35000vr" Chadwick.
+See LICENSE for details.
+
+CT-CODE is an engine for modifying the game Mario Kart Wii. It provides an
+extensible framework for adding extra functionality to the game. It contains
+the following features at present:
+	* Replaces game course load logic to allow more than 32 race courses.
+	* Replaces game menu logic to display a menu with arrows to allow more than
+	  32 courses to be selected.
+	* Changes online region of play to create isolated online multiplayer.
+	* Adds a 'speedometer' to the game in single player mode.
+	* Adds a randomiser to the menus to allow random track selection.
+	* Sets the draggable option on the 'blue shell' item.
+
+See BUILDING for instructions on how to make and install the engine.
+See PORTING for information and speculation about porting the code to other
+regions or games.
+
+The engine is broken into two parts:
+	BAD0 - the modification to main.dol, repsposible for loading BAD1.
+	BAD1 - code embedded in a texture which performs most of the actual work.
+
+The engine works by changing the entry point of the game's executable
+(main.dol) to BAD0. This then edits the behaviour of the game to load a texture
+called CTGP_CODE on the Health and Safety screen rather than the default. It
+also patches the game to branch to this texture as executable code. BAD1 is
+embedded inside this texture and from there it alters the game according to its
+code. BAD0 should be changed as little as possible, its behaviour is designed
+to be generic so that only BAD1 needs to be changed to add new functionality.

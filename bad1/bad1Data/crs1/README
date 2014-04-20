@@ -1,0 +1,33 @@
+CRS1 and CUP1 are manually editted at this time. http://szs.wiimm.de/wctct/ is
+a tool to automatically edit these in a more amenable text format.
+
+The basic format in 'C' like format is:
+
+struct crs1 {
+    u32 magic = "CRS1";
+    u32 length;
+    u32 version = 0;
+    u32 race_track_count;
+    u32 battle_track_count;
+    /* sizes of various constructed tables to save working this out in
+     * runCrs1.s */
+    u32 raceTrackNameTable_size; 
+    u32 raceTrackNameStringTable_size;
+    u32 raceTrackSlotTable_size;
+    u32 raceUnusedTable_size;
+    u32 battleTrackNameTable_size; 
+    u32 battleTrackNameStringTable_size;
+    u32 battleTrackSlotTable_size;
+    u32 battleUnusedTable_size;
+    u32 padding[3];
+    struct crs1_entry race_tracks[race_track_count];
+    struct crs1_entry battle_tracks[battle_track_count];
+};
+
+struct crs1_entry {
+    u16 course_name[0x40]; /* unicode name. Unused in this version. */
+    char file_name[0x40]; /* folder and extension are implied. */
+    u32 music_id;
+    u32 slot_id;
+    u32 padding[14];
+};

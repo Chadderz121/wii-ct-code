@@ -1,0 +1,10 @@
+BAD0 is the section responsible for loading BAD1 in the CT-CODE extension.
+
+BAD0 is broken into two parts:
+	BAD0CODE - The code segment for BAD0.
+	BAD0DATA - The data segment for BAD0.
+
+BAD0DATA is kept in a fairly simple archive format, which tagged components
+inside it. Each of these components has a corresponding piece of code inside
+BAD0CODE to process it. The tags to date are:
+	MOD0 - Patches to apply to main.dol and the early memory to load BAD1.

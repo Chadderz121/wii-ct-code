@@ -1,0 +1,13 @@
+CT-CODE has been ported to RMCE, RMCJ and RMCP. Other Mario Kart regions can be
+easily supported. A linker script of symbol definitions is required (like
+rmcp.ld). Then an additional rule or two is necessary in the top level
+Makefile, copying from the template of the others. The rest of the build system
+is region agnostic.
+
+Porting the basic structure to other games would not be impossible. The basic
+architecture of BAD0 in main.dol loading a texture containing BAD1 on the 
+health and safety screen should be almost universal. Port addresses would have
+be updated in the region agnostic link script (rmc.ld) as well as the region
+sepcific ones. Deleting some of the make rules in BAD1 should disable all the
+Mario Kart specific logic, but the MOD1 & MOD2 sections should still prove
+useful (if not their contents).

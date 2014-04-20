@@ -1,0 +1,27 @@
+CRS1 and CUP1 are manually editted at this time. http://szs.wiimm.de/wctct/ is
+a tool to automatically edit these in a more amenable text format.
+
+The basic format in 'C' like format is:
+
+struct cup1 {
+    u32 magic = "CUP1";
+    u32 length;
+    u32 version = 0;
+    u32 race_cup_count;
+    u32 battle_cup_count;
+    u32 raceCupTable_size; 
+    u32 raceCupNameTable_size;
+    u32 raceCupNameStringTable_size;
+    u32 battleCupTable_size; 
+    u32 battleCupNameTable_size;
+    u32 battleCupNameStringTable_size;
+    u32 padding[5];
+    struct cup1_entry race_cups[race_cup_count];
+    struct cup1_entry battle_cups[race_battle_count];
+};
+
+struct cup1_entry {
+    u16 cup_name[0x40]; /* unicode name. Unused in this version. */
+    u32 tracks[5]; /* race cups only have 4 tracks. */
+    u32 padding[27];
+};
