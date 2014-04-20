@@ -1,0 +1,10 @@
+OVR1 is a speedometer. This is a rather hacky piece of code; it latches into
+the game's draw method and directly alters the screen buffer. The code is split
+into overlay.s which is generic screen code and ctgp_overlay.s which is logic
+specific to rendering a speedometer. In practice, we can't render many more than
+about 160 by 40 pixels before visual artifacts are seen due to lag.
+
+The .dds files are the images used by OVR1. These were edited in Paint .Net
+which is one of the only programs that can process these files. The dimensions
+MUST not change and the pixel format MUST be RGBA32 in the current code. Editing
+the code may enable you to support other dimensions/formats.

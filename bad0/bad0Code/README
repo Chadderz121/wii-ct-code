@@ -1,0 +1,3 @@
+bad0code is a code section that is run when the game starts. To simplify
+linking, the assembly code files include each other directly starting with
+main.s. bad0code is responsible for processing bad0data.
