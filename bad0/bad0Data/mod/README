@@ -1,0 +1,30 @@
+One of the lovely things about the CT-CODE engine is its MOD engine. This
+allows us to arbitrarily patch the game's memory at three points:
+
+	MOD0 - prior to execution of the entry point.
+	MOD1 - when the health and safety screen is first loaded.
+	MOD2 - when the health and safety screen fades.
+
+MOD0 is stored inside the modified main.dol file, making it inconvenient to
+edit. For this reason, all it does is make the patches needed to run MOD1 and
+MOD2. MOD1 runs before the file StaticR.rel is loaded, making it a good time to
+copy in large sections of code to fixed addresses, and patch main.dol itself.
+MOD2 runs after StaticR.rel is loaded, making it good for patching this file.
+Unfortunately, for simplicity, MOD2 remains in memory prementantly. Therefore
+we want to make it as small as possible, so anything which can be done in MOD1
+should be. MOD1 is only in memory while the health and safety screen is
+displayed.
+
+MOD0 is part of BAD0, so this folder only controls MOD1 and MOD2. Each of the
+.mod files in this directory is processed by commands in makefile.mk to
+assemble and format the patches correctly. The syntax of each line of the .mod
+files is:
+MOD_DOL(<id>, <address>, <code>)
+or
+MOD_REL(<id>, <address>, <code>)
+
+MOD_DOL causes the ppc asm <code> to be copied to <address> as part of MOD1.
+MOD_REL causes the ppc asm <code> to be copied to <address> as part of MOD2.
+In both cases, <id> is a friendly name. /* */ comments are recognised.
+ALL LINES OF ASSEMBLY CODE MUST END IN ;
+Due to the adhoc nature of this build system, syntax errors are poorly reported.
