@@ -49,7 +49,6 @@ $(BUILD)/mod%.data.i: $(SRC_MOD) $(BUILD_ALL)/mod.data.o.inc $(BUILD)/mod%.inc
 	$(LOG)
 	$Qcat $(BUILD_ALL)/mod.data.o.inc $(BUILD)/mod$*.inc > $@
 	$Qecho ".section .data; .ascii \"MOD$*\"; .int mod_end; .int 0; .int ( table_end - table_start ) / 16; .int 0; .int 0; .int 0; .int 0; table_start:" >> $@
-	$Qecho "#line 1 \"$(BAD1)/bad1data/mod/mod$*.mod\"" >> $@
 	$Qcat $(SRC_MOD) >> $@
 	$Qecho "table_end:" >> $@
 
@@ -86,7 +85,6 @@ $(BUILD)/mod%.text.s: $(BUILD)/mod%.text.i
 $(BUILD)/mod%.text.i: $(SRC_MOD) $(BUILD_ALL)/mod.text.o.inc $(BUILD)/mod%.inc
 	$(LOG)
 	$Qcat $(BUILD_ALL)/mod.text.o.inc $(BUILD)/mod$*.inc > $@
-	$Qecho "#line 1 \"$(BAD1)/bad1data/mod/mod$*.mod\"" >> $@
 	$Qcat $(SRC_MOD) >> $@
 
 $(BUILD_ALL)/mod.text.o.inc:
