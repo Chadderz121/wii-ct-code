@@ -6,7 +6,11 @@ _bad1Data:
 .int 0xBad1Da7a					#tag
 .int _bad1DataEnd - _bad1Data	#length
 .int 0							#version
+.if ENABLE_SOM == 1
 .int 5							#section count
+.else
+.int 4							#section count
+.endif
 .int 0							#padding
 .int 0							#padding
 .int 0							#padding
