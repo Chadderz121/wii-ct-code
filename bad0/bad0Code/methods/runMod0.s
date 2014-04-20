@@ -36,8 +36,8 @@ _methodRunMod0ModLoopStart:
 	add r4,r4,r30
 
 	#call memcpy
-	lis r12,0x8000
-	ori r12,r12,0x5f34
+	lis r12,memcpy@h
+	ori r12,r12,memcpy@l
 	mtlr r12
 	blrl
 
