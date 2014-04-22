@@ -11,5 +11,5 @@ bad0data: $(BUILD)/bad0data.o
 $(BUILD)/bad0data.o: $(BAD0)/bad0data/bad0data.s $(BUILD)/mod0.bin
 	$(LOG)
 	$Q$(AS) $(SFLAGS) $< -o $@
-		
+
 include $(BAD0)/bad0data/mod/makefile.mk

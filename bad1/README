@@ -1,15 +1,15 @@
 BAD1 is the section responsible for editing the game in the CT-CODE extension.
 
 BAD1 is broken into three parts:
-	BAD1CODE - The code segment for BAD1.
-	BAD1DATA - The data segment for BAD1.
-	tex0     - The data necessary to generate the texture with BAD1 embedded.
+    BAD1CODE - The code segment for BAD1.
+    BAD1DATA - The data segment for BAD1.
+    tex0     - The data necessary to generate the texture with BAD1 embedded.
 
 BAD1DATA is kept in a fairly simple archive format, which tagged components
 inside it. Each of these components has a corresponding piece of code inside
 BAD1CODE to process it. The tags to date are:
-	MOD1 - Patches to apply to main.dol and the early memory.
-	MOD2 - Patches to apply to StaticR.rel.
-	CRS1 - List of courses to replace the default tables.
-	CUP1 - List of cups to replace the default tables.
-	OVR1 - Adds a 'speedometer' to the game in single player.
+    MOD1 - Patches to apply to main.dol and the early memory.
+    MOD2 - Patches to apply to StaticR.rel.
+    CRS1 - List of courses to replace the default tables.
+    CUP1 - List of cups to replace the default tables.
+    OVR1 - Adds a 'speedometer' to the game in single player.

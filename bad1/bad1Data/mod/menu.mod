@@ -29,7 +29,7 @@ MOD_DOL(
         lwz     r27,pageNumber@l(r28);
         rlwinm  r27,r27,1,0,30;
 
-    0:		subf    r26,r27,r26;
+    0:      subf    r26,r27,r26;
             lwz     r27,cupCount@l(r28);
             subf    r26,r27,r26;
             cmpwi   r26,6;
@@ -98,16 +98,16 @@ MOD_DOL(
         li      r3,6;
         mtctr   r3;
 
-    2:		lwz     r4,0(r28);
-    1:		cmpw    r31,r29;
+    2:      lwz     r4,0(r28);
+    1:      cmpw    r31,r29;
             blt-    1f;
             subf    r31,r29,r31;
             b       1b;
-    1:		cmpwi   r31,0;
+    1:      cmpwi   r31,0;
             bge-    1f;
             add     r31,r31,r29;
             b       1b;
-    1:		lwz     r3,cupStart@l(r30);
+    1:      lwz     r3,cupStart@l(r30);
             cmpwi   r8,0;
             add     r3,r3,r31;
             addis   r5,r27,1;
@@ -124,7 +124,7 @@ MOD_DOL(
         addi    r1,r1,256;
         blr;
 
-    0:		cmpwi   r26,0;
+    0:      cmpwi   r26,0;
             bgelr;
             add     r26,r26,r27;
             b       0b;
@@ -170,7 +170,7 @@ MOD_DOL(
         lis     r4,128;
         ori     r4,r4,128;
 
-    0:		lwz     r6,0(r3);
+    0:      lwz     r6,0(r3);
             lwz     r6,40(r6);
             lwz     r6,64(r6);
             stw     r4,8(r6);
@@ -200,7 +200,7 @@ MOD_DOL(
         addi    r4,r4,4;
         stw     r4,6224(r3);
         b       _ctgpr_scoll_patch;
-    1:	stw     r3,576(r4);
+    1:  stw     r3,576(r4);
         li      r6,1;
         stw     r6,484(r4);
         blr;
@@ -226,7 +226,7 @@ MOD_DOL(
         lwz     r4,pageNumber@l(r5);
         li      r26,0;
 
-    0:		cmpw    r4,r31;
+    0:      cmpw    r4,r31;
             beq-    0f;
             addi    r31,r31,-1;
             addi    r26,r26,1;
@@ -235,7 +235,7 @@ MOD_DOL(
 
         addi    r31,r31,1;
         stw     r31,3576(r5);
-    0:	lis     r5,-32629;
+    0:  lis     r5,-32629;
         blr;
 )
 MOD_DOL(

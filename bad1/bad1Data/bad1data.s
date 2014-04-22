@@ -3,18 +3,18 @@
 _bad1Data:
 
 #Write Header
-.int 0xBad1Da7a					#tag
-.int _bad1DataEnd - _bad1Data	#length
-.int 0							#version
+.int 0xBad1Da7a                 #tag
+.int _bad1DataEnd - _bad1Data   #length
+.int 0                          #version
 .if ENABLE_SOM == 1
-.int 5							#section count
+.int 5                          #section count
 .else
-.int 4							#section count
+.int 4                          #section count
 .endif
-.int 0							#padding
-.int 0							#padding
-.int 0							#padding
-.int 0							#padding
+.int 0                          #padding
+.int 0                          #padding
+.int 0                          #padding
+.int 0                          #padding
 
 #Write contents
 .int _cup1Start-_bad1Data

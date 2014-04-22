@@ -5,13 +5,13 @@ devkitpro can be downloaded at: http://sourceforge.net/projects/devkitpro/
 
 To build the project, open a terminal in this directory and use the following
 commands:
-	make       - explains the build system.
-	make all   - builds all regions.
-	make rmce  - makes the mode for RMCE only.
-	make rmcj  - makes the mode for RMCJ only.
-	make rmcp  - makes the mode for RMCP only.
-	make clean - deletes all generate files.
-    
+    make       - explains the build system.
+    make all   - builds all regions.
+    make rmce  - makes the mode for RMCE only.
+    make rmcj  - makes the mode for RMCJ only.
+    make rmcp  - makes the mode for RMCP only.
+    make clean - deletes all generate files.
+
 The following settings are recognised on the command line
 (e.g. make all ONLINE_REGION=256 ENABLE_FILTER=0):
 
@@ -55,9 +55,9 @@ explanation of how they relate to the source files.
 
 A few variables can be overriden when invoking make. This is done by appending
 SETTING=VALUE to the make rules (e.g. make all LOG=).
-	LOG    - command to run before each build target (default @echo $@).
-	Q      - prefix to all build commands (default @ to supress logging).
-	PREFIX - prefix to all binutils tools (default powerpc-eabi-).
+    LOG    - command to run before each build target (default @echo $@).
+    Q      - prefix to all build commands (default @ to supress logging).
+    PREFIX - prefix to all binutils tools (default powerpc-eabi-).
 
 The build can be sped up significantly using multiple threads by appending the
 -j flag to the make commands.

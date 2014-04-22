@@ -8,7 +8,7 @@ MOD_DOL(
     mod1_8,
     0x80003554,
         /* join friend -> logging on, need to determine if WW or region */
-    0:	cmpwi   r30,91;
+    0:  cmpwi   r30,91;
         bne-    0f;
         b       1f;
 
@@ -23,7 +23,7 @@ MOD_DOL(
         bgt-    2f;
         add     r31,r31,r26;
         nop;
-    2:	stw     r31,9172(r3);
+    2:  stw     r31,9172(r3);
         b       _ctgpr_scroll_toscreen_patch_back;
 
     /* method to detect appropriate cup filter.
@@ -56,7 +56,7 @@ MOD_DOL(
         bne-    0b;
 
         /* check we're on character select. */
-    1:	lwz     r30,848(r31);
+    1:  lwz     r30,848(r31);
         lwz     r29,4(r30);
         cmpwi   r29,143;
         bne-    0f;
@@ -72,12 +72,12 @@ MOD_DOL(
         bl      _ctgpr_filter_all;
 #endif
         b       2f;
-    1:	bl      _ctgpr_filter_nintendo_only;
+    1:  bl      _ctgpr_filter_nintendo_only;
         b       2f;
 
-    0:	bl      _ctgpr_filter_all;
+    0:  bl      _ctgpr_filter_all;
 
-    2:	lwz     r0,36(r1);
+    2:  lwz     r0,36(r1);
         mtlr    r0;
         lmw     r26,8(r1);
         addi    r1,r1,32;

@@ -3,14 +3,14 @@
 _bad0data:
 
 #Write Header
-.int 0xBad0Da7a					#tag
-.int _bad0DataEnd - _bad0data	#length
-.int 0							#version
-.int 1							#section count
-.int _bad0data					#bad0data address
-.int 0							#padding
-.int 0							#padding
-.int 0							#padding
+.int 0xBad0Da7a                 #tag
+.int _bad0DataEnd - _bad0data   #length
+.int 0                          #version
+.int 1                          #section count
+.int _bad0data                  #bad0data address
+.int 0                          #padding
+.int 0                          #padding
+.int 0                          #padding
 
 #Write contents
 .int _mod0Start-_bad0data

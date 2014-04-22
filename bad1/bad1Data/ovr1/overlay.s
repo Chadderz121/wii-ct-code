@@ -5,7 +5,7 @@
 # =============================================================================
 #  Writes arbitrary images to the screen in wii games
 #  Changelog
-#	v0.3 (2012-09-21): Updated to fix 480p
+#   v0.3 (2012-09-21): Updated to fix 480p
 #   v0.2 (2012-03-20): Added drawNumber
 #   v0.1 (2012-03-18): Initial
 # =============================================================================
@@ -504,24 +504,24 @@ methodDrawImageLoopY:
       
       bl methodPixelCopy
       
-	  methodDrawImageLoopXContinue:
+      methodDrawImageLoopXContinue:
       
       mullw r4,tempY,screenWidth
       add r4,r4,tempX
       slwi r4,r4,1
       add r4,r4,screenAddress
 
-	  andi. r3,r4,0x1f
-	  cmpwi r3,0x1c
-	  blt- 0f
-	  li r3,0
-	  dcbst r3,r4
-	  0:
+      andi. r3,r4,0x1f
+      cmpwi r3,0x1c
+      blt- 0f
+      li r3,0
+      dcbst r3,r4
+      0:
 
       addi loopX,loopX,2
       b methodDrawImageLoopX
 
-   methodDrawImageLoopXBreak:	 
+   methodDrawImageLoopXBreak:    
       
    mullw r4,tempY,screenWidth
    add r4,r4,tempX
@@ -529,7 +529,7 @@ methodDrawImageLoopY:
    add r4,r4,screenAddress
    li r3,0
    dcbst r3,r4
-	   
+       
    methodDrawImageLoopYContinue:
    addi loopY,loopY,1
    b methodDrawImageLoopY

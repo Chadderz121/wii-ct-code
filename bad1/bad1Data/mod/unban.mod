@@ -11,9 +11,9 @@
  * whatever trash was on the stack at the time in the last 3 bytes.
  */
 MOD_DOL(
-	mod_unban,
-	mod_unban_addr,
-		li r5,3;
+    mod_unban,
+    mod_unban_addr,
+        li r5,3;
 )
 
 #endif

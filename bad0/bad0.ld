@@ -6,21 +6,21 @@
 *============================================================================*/
 
 MEMORY {
-	/* The gap in main.dol left for the .bss section. They zero this at the
+    /* The gap in main.dol left for the .bss section. They zero this at the
      * start of the game, so it's safe to put stuff here temporarily. */
-	BSS : ORIGIN = 0x802A4080, LENGTH = 0xE50FC
+    BSS : ORIGIN = 0x802A4080, LENGTH = 0xE50FC
 }
 
 SECTIONS {
-	.text 0x802A5000 : {
-		*(.text)
-	} > BSS
-	.data 0x802A8000 : {
-		*(.data)
-	} > BSS
-	/DISCARD/ : {
-		*(*)
-	}
+    .text 0x802A5000 : {
+        *(.text)
+    } > BSS
+    .data 0x802A8000 : {
+        *(.data)
+    } > BSS
+    /DISCARD/ : {
+        *(*)
+    }
 }
 
 ENTRY(_start)

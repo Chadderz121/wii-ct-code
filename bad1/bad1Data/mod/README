@@ -1,9 +1,9 @@
 One of the lovely things about the CT-CODE engine is its MOD engine. This
 allows us to arbitrarily patch the game's memory at three points:
 
-	MOD0 - prior to execution of the entry point.
-	MOD1 - when the health and safety screen is first loaded.
-	MOD2 - when the health and safety screen fades.
+    MOD0 - prior to execution of the entry point.
+    MOD1 - when the health and safety screen is first loaded.
+    MOD2 - when the health and safety screen fades.
 
 MOD0 is stored inside the modified main.dol file, making it inconvenient to
 edit. For this reason, all it does is make the patches needed to run MOD1 and

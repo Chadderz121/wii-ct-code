@@ -23,7 +23,7 @@ MOD_DOL(
         lwz r4,0(r4);
 
         /* set r3 to the n'th menu's address */
-    0:	lwz r3,0x378(r4);
+    0:  lwz r3,0x378(r4);
         cmpwi r3,0;
         beq 1f;
 
@@ -43,7 +43,7 @@ MOD_DOL(
         li r3,0;
         blr;
 
-    1:	subi r4,r4,4;
+    1:  subi r4,r4,4;
         b 0b;
 
     /* Called every frame when randomOverride is 1 to orchestrate the
@@ -68,7 +68,7 @@ MOD_DOL(
         cmpwi r3,0;
         beq 8f;
 
-        /* check screen is displayed. */	
+        /* check screen is displayed. */    
         lwz r4,0x8(r3);
         cmpwi r4,4;
         bne 8f;
@@ -84,14 +84,14 @@ MOD_DOL(
         stb r3,random_button@l(r31);
         b 9f;
 
-    1:	subi r3,r3,1;
+    1:  subi r3,r3,1;
         stb r3,random_action@l(r31);
         li r4,0;
         stb r4,random_button@l(r31);
         b 9f;
 
         /* Cup select screen */
-    8:	li r3,0x6e;
+    8:  li r3,0x6e;
         bl _get_panel_ptr;
         cmpwi r3,0;
         beq 8f;
@@ -107,14 +107,14 @@ MOD_DOL(
         stb r3,random_action@l(r31);
         b 9f;
 
-    1:	subi r3,r3,1;
+    1:  subi r3,r3,1;
         stb r3,random_action@l(r31);
         li r4,0;
         stb r4,random_button@l(r31);
         b 9f;
 
         /* Course select screen */
-    8:	li r3,0x6f;
+    8:  li r3,0x6f;
         bl _get_panel_ptr;
         cmpwi r3,0;
         beq 8f;
@@ -131,7 +131,7 @@ MOD_DOL(
         stb r3,random_action@l(r31);
         b 9f;
 
-    1:	subi r3,r3,1;
+    1:  subi r3,r3,1;
         stb r3,random_action@l(r31);
         li r4,0;
         stb r4,random_button@l(r31);
@@ -139,7 +139,7 @@ MOD_DOL(
         b 9f;
 
         /* VR screen */
-    8:	li r3,0x91;
+    8:  li r3,0x91;
         bl _get_panel_ptr;
         cmpwi r3,0;
         beq 8f;
@@ -155,18 +155,18 @@ MOD_DOL(
         stb r3,random_button@l(r31);
         b 9f;
 
-    1:	subi r3,r3,1;
+    1:  subi r3,r3,1;
         stb r3,random_action@l(r31);
         li r4,0;
         stb r4,random_button@l(r31);
         b 9f;
 
         /* Not a randomised screen, disable randomiser. */
-    8:	li r4,0;
+    8:  li r4,0;
         stb r4,random_enable@l(r31);
         stb r4,random_button@l(r31);
 
-    9:	lmw r30,8(r1);
+    9:  lmw r30,8(r1);
         lwz r0,20(r1);
         mtlr r0;
         addi r1,r1,16;
@@ -196,7 +196,7 @@ MOD_DOL(
         b 0f;
 
         /* Press A on finish */
-    1:	lbz r3,random_timeout@l(r30);
+    1:  lbz r3,random_timeout@l(r30);
         cmpwi r3,1;
         bgt 2f;
         cmpwi r3,0;
@@ -207,18 +207,18 @@ MOD_DOL(
         stb r3,random_timeout@l(r30);
         b 2f;
 
-    1:	subi r3,r3,1;
+    1:  subi r3,r3,1;
         stb r3,random_timeout@l(r30);
         li r4,1;
         stb r4,random_button@l(r30);
         b 0f;
 
-    2:	subi r3,r3,1;
+    2:  subi r3,r3,1;
         stb r3,random_timeout@l(r30);
         li r4,0;
         stb r4,random_button@l(r30);
 
-    1:	li r3,0x6e;
+    1:  li r3,0x6e;
         bl _get_panel_ptr;
         mr r31,r3;
 
@@ -239,7 +239,7 @@ MOD_DOL(
         cmpwi r3,5;
         beq-    1f;
         li      r3,10;
-    1:	xori    r3,r3,15;
+    1:  xori    r3,r3,15;
         b       _direction_patch;
     _direction_patch_ret:
 
@@ -247,7 +247,7 @@ MOD_DOL(
          * one. */
         lbz r29,random_last_cup@l(r30);
 
-    1:	li r3,6;
+    1:  li r3,6;
         bl _ctgpr_rng;
         cmpw r3,r29;
         beq 1b;
@@ -282,7 +282,7 @@ MOD_DOL(
         li r3,1;
         stw r3,0xa1c(r31);
 
-    0:	lmw r29,8(r1);
+    0:  lmw r29,8(r1);
         lwz r0,36(r1);
         mtlr r0;
         addi r1,r1,32;
@@ -313,7 +313,7 @@ MOD_DOL(
         b 0f;
 
         /* Press A on finish */
-    1:	lbz r3,random_timeout@l(r30);
+    1:  lbz r3,random_timeout@l(r30);
         cmpwi r3,1;
         bgt 2f;
         cmpwi r3,0;
@@ -326,18 +326,18 @@ MOD_DOL(
         stb r3,random_timeout@l(r30);
         b 2f;
 
-    1:	subi r3,r3,1;
+    1:  subi r3,r3,1;
         stb r3,random_timeout@l(r30);
         li r4,1;
         stb r4,random_button@l(r30);
         b 0f;
 
-    2:	subi r3,r3,1;
+    2:  subi r3,r3,1;
         stb r3,random_timeout@l(r30);
         li r4,0;
         stb r4,random_button@l(r30);
 
-    1:	li r3,0x6f;
+    1:  li r3,0x6f;
         bl _get_panel_ptr;
         mr r31,r3;
 
@@ -351,10 +351,10 @@ MOD_DOL(
         bne 1f;
         li r3,4;
     
-    1:	xori r3,r3,0x6;
+    1:  xori r3,r3,0x6;
         stw r3,0x4c0(r31);
 
-    0:	lmw r29,8(r1);
+    0:  lmw r29,8(r1);
         lwz r0,36(r1);
         mtlr r0;
         addi r1,r1,32;
@@ -393,7 +393,7 @@ MOD_DOL(
         stw r4,0x9F4+7*0x254(r3);
 
         /* Run when timer expires (or about to anyway) */
-    0:	li r3,0x90;
+    0:  li r3,0x90;
         bl _get_panel_ptr;
 
         cmpwi r3,0;
@@ -413,11 +413,11 @@ MOD_DOL(
         lis r5,timelimit@ha;
         b 2f;
 
-    1:	li r6,6;
+    1:  li r6,6;
         stw r6,8(r3);
 
         /* check time limit. */
-    2:	lwz r4,0x6c(r3);
+    2:  lwz r4,0x6c(r3);
         lwz r6,timelimit@l(r5);
         cmpw r4,r6;
         bgt 0f;
@@ -428,7 +428,7 @@ MOD_DOL(
         li r3,1;
         stb r3,random_enable@l(r5);
 
-    0:	lwz r0,20(r1);
+    0:  lwz r0,20(r1);
         mtlr r0;
         addi r1,r1,16;
         blr;
@@ -481,7 +481,7 @@ MOD_DOL(
         lbz r6,random_button@l(r31);
         stw r6,24(r1);
 
-    0:	lwz r0,132(r1);
+    0:  lwz r0,132(r1);
         mtlr r0;
         lwz r0,8(r1);
         lmw r3,12(r1);
@@ -516,7 +516,7 @@ MOD_DOL(
         cmpwi r17,0;
         beq 0f;
         li r16,0;
-    0:	cmpwi r16,0;
+    0:  cmpwi r16,0;
         blr;
 
     /* onScroll(in r4 scroll)
@@ -554,7 +554,7 @@ MOD_DOL(
 
         stw r7,4(r10);
 
-    0:	lwz r4,8(r1);
+    0:  lwz r4,8(r1);
         addi r1,r1,16;
         b onScrollTimeReturn;
 
@@ -573,8 +573,8 @@ MOD_DOL(
         b 1f;
 
         /* Seed the RNG by reading some numbers in */
-    0:	lis r6,0x809c;
-    0:		lwzu r7,4(r6);
+    0:  lis r6,0x809c;
+    0:      lwzu r7,4(r6);
             add r7,r7,r6;
             xor r5,r5,r7;
             rlwinm r5,r5,3,0,31;
@@ -583,7 +583,7 @@ MOD_DOL(
         li r7,1;
         stb r7,random_has_seed@l(r4);
 
-    1:	/* QCRNG params: a=0x3f00, b=1, c=31073 */
+    1:  /* QCRNG params: a=0x3f00, b=1, c=31073 */
         mulli r6,r5,0x3f00;
         mullw r6,r6,r5;
         add r6,r6,r5;

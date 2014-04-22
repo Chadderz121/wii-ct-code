@@ -14,75 +14,75 @@
  
 /* these patches redirect the game's cup -> track table to raceCupTable. */
 MOD_REL(
-	mod_raceCupTable_1,
-	mod_raceCupTable_1_addr,
-		lis r5,raceCupTable@ha;
+    mod_raceCupTable_1,
+    mod_raceCupTable_1_addr,
+        lis r5,raceCupTable@ha;
 )
 MOD_REL(
-	mod_raceCupTable_2,
-	mod_raceCupTable_1_addr + 0x10,
-		lwz r5,raceCupTable@l(r5);
+    mod_raceCupTable_2,
+    mod_raceCupTable_1_addr + 0x10,
+        lwz r5,raceCupTable@l(r5);
 )
 MOD_REL(
-	mod_raceCupTable_3,
-	mod_raceCupTable_3_addr,
-		lis r31,raceCupTable@ha;
+    mod_raceCupTable_3,
+    mod_raceCupTable_3_addr,
+        lis r31,raceCupTable@ha;
 )
 MOD_REL(
-	mod_raceCupTable_4,
-	mod_raceCupTable_3_addr + 0xc,
-		lwz r31,raceCupTable@l(r31);
+    mod_raceCupTable_4,
+    mod_raceCupTable_3_addr + 0xc,
+        lwz r31,raceCupTable@l(r31);
 )
 MOD_REL(
-	mod_raceCupTable_5,
-	mod_raceCupTable_5_addr,
-		lis r4,raceCupTable@ha;
+    mod_raceCupTable_5,
+    mod_raceCupTable_5_addr,
+        lis r4,raceCupTable@ha;
 )
 MOD_REL(
-	mod_raceCupTable_6,
-	mod_raceCupTable_5_addr + 0x8,
-		lwz r4,raceCupTable@l(r4);
+    mod_raceCupTable_6,
+    mod_raceCupTable_5_addr + 0x8,
+        lwz r4,raceCupTable@l(r4);
 )
 MOD_REL(
-	mod_raceCupTable_7,
-	mod_raceCupTable_7_addr,
-		lis r4,raceCupTable@ha;
+    mod_raceCupTable_7,
+    mod_raceCupTable_7_addr,
+        lis r4,raceCupTable@ha;
 )
 MOD_REL(
-	mod_raceCupTable_8,
-	mod_raceCupTable_7_addr + 0x8,
-		lwz r4,raceCupTable@l(r4);
+    mod_raceCupTable_8,
+    mod_raceCupTable_7_addr + 0x8,
+        lwz r4,raceCupTable@l(r4);
 )
 MOD_REL(
-	mod_raceCupTable_9,
-	mod_raceCupTable_9_addr,
-		lis r4,raceCupTable@ha;
+    mod_raceCupTable_9,
+    mod_raceCupTable_9_addr,
+        lis r4,raceCupTable@ha;
 )
 MOD_REL(
-	mod_raceCupTable_10,
-	mod_raceCupTable_9_addr + 0xc,
-		lwz r4,raceCupTable@l(r4);
+    mod_raceCupTable_10,
+    mod_raceCupTable_9_addr + 0xc,
+        lwz r4,raceCupTable@l(r4);
 )
 MOD_REL(
-	mod_raceCupTable_11,
-	mod_raceCupTable_11_addr,
-		lis r5,raceCupTable@ha;
-		lwz r5,raceCupTable@l(r5);
+    mod_raceCupTable_11,
+    mod_raceCupTable_11_addr,
+        lis r5,raceCupTable@ha;
+        lwz r5,raceCupTable@l(r5);
 )
 MOD_REL(
-	mod_raceCupTable_12,
-	mod_raceCupTable_12_addr,
-		lis r5,raceCupTable@ha;
+    mod_raceCupTable_12,
+    mod_raceCupTable_12_addr,
+        lis r5,raceCupTable@ha;
 )
 MOD_REL(
-	mod_raceCupTable_13,
-	mod_raceCupTable_12_addr + 0x10,
-		lwz r5,raceCupTable@l(r5);
+    mod_raceCupTable_13,
+    mod_raceCupTable_12_addr + 0x10,
+        lwz r5,raceCupTable@l(r5);
 )
 MOD_REL(
-	mod2_23,
-	mod2_23_addr,
-		bl _ctgpr_load_raceCupTable_r28_r0;
+    mod2_23,
+    mod2_23_addr,
+        bl _ctgpr_load_raceCupTable_r28_r0;
 )
 
 
@@ -90,58 +90,58 @@ MOD_REL(
  * raceTrackNameTable.
  */
 MOD_REL(
-	mod_raceTrackNameTable_1,
-	mod_raceTrackNameTable_1_addr,
-		lis r4,raceTrackNameTable@ha;
+    mod_raceTrackNameTable_1,
+    mod_raceTrackNameTable_1_addr,
+        lis r4,raceTrackNameTable@ha;
 )
 MOD_REL(
-	mod_raceTrackNameTable_2,
-	mod_raceTrackNameTable_1_addr + 0x10,
-		lwz r4,raceTrackNameTable@l(r4);
+    mod_raceTrackNameTable_2,
+    mod_raceTrackNameTable_1_addr + 0x10,
+        lwz r4,raceTrackNameTable@l(r4);
 )
 MOD_REL(
-	mod_raceTrackNameTable_3,
-	mod_raceTrackNameTable_4_addr + 0x10,
-		lwz r4,raceTrackNameTable@l(r4);
+    mod_raceTrackNameTable_3,
+    mod_raceTrackNameTable_4_addr + 0x10,
+        lwz r4,raceTrackNameTable@l(r4);
 )
 MOD_REL(
-	mod_raceTrackNameTable_4,
-	mod_raceTrackNameTable_4_addr,
-		lis r4,raceTrackNameTable@ha;
+    mod_raceTrackNameTable_4,
+    mod_raceTrackNameTable_4_addr,
+        lis r4,raceTrackNameTable@ha;
 )
 MOD_REL(
-	mod_raceTrackNameTable_5,
-	mod_raceTrackNameTable_5_addr,
-		lis r4,raceTrackNameTable@ha;
+    mod_raceTrackNameTable_5,
+    mod_raceTrackNameTable_5_addr,
+        lis r4,raceTrackNameTable@ha;
 )
 MOD_REL(
-	mod_raceTrackNameTable_6,
-	mod_raceTrackNameTable_5_addr + 0x10,
-		lwz r4,raceTrackNameTable@l(r4);
+    mod_raceTrackNameTable_6,
+    mod_raceTrackNameTable_5_addr + 0x10,
+        lwz r4,raceTrackNameTable@l(r4);
 )
 
 /* These mods redirect certain track IDs to the real track ID. */
 MOD_REL(
-	mod_currentCourse_1,
-	mod_currentCourse_1_addr,
-		lis r5,currentCourse@ha;
-		lwz r0,currentCourse@l(r5);
+    mod_currentCourse_1,
+    mod_currentCourse_1_addr,
+        lis r5,currentCourse@ha;
+        lwz r0,currentCourse@l(r5);
 )
 MOD_REL(
-	mod_currentCourse_2,
-	mod_currentCourse_2_addr,
-		lis r4,currentCourse@ha;
+    mod_currentCourse_2,
+    mod_currentCourse_2_addr,
+        lis r4,currentCourse@ha;
 )
 MOD_REL(
-	mod_currentCourse_3,
-	mod_currentCourse_2_addr + 0x10,
-		lwz r4,currentCourse@l(r4);
+    mod_currentCourse_3,
+    mod_currentCourse_2_addr + 0x10,
+        lwz r4,currentCourse@l(r4);
 )
 MOD_REL(
-	mod_currentCourse_4,
-	mod_currentCourse_4_addr,
-		lis r3,currentCourse@ha;
-		lwz r27,currentCourse@l(r3);
+    mod_currentCourse_4,
+    mod_currentCourse_4_addr,
+        lis r3,currentCourse@ha;
+        lwz r27,currentCourse@l(r3);
 )
 
 /* These mods change to the real track id (as picked in the menu) to the slot
@@ -299,7 +299,7 @@ MOD_DOL(
         li      r4,255;
         beq-    0f;
         and     r3,r3,r4;
-    0:	blr;
+    0:  blr;
 
     .globl _ctgpr_func_4394;
     _ctgpr_func_4394:
@@ -311,63 +311,63 @@ MOD_DOL(
         blt-    0f;
         lwz     r3,28(r31);
         blr;
-    0:	lwz     r3,68(r31);
+    0:  lwz     r3,68(r31);
         blr;
 )
     
 MOD_REL(
-	mod_redirect_course_1,
-	mod_redirect_course_1_addr,
-		bl _ctgpr_redirect_course;
+    mod_redirect_course_1,
+    mod_redirect_course_1_addr,
+        bl _ctgpr_redirect_course;
 )
 MOD_REL(
-	mod_redirect_course_2,
-	mod_redirect_course_2_addr,
-		bl _ctgpr_redirect_course_eabi_r3_r4;
+    mod_redirect_course_2,
+    mod_redirect_course_2_addr,
+        bl _ctgpr_redirect_course_eabi_r3_r4;
 )
 MOD_REL(
-	mod_redirect_course_3,
-	mod_redirect_course_3_addr,
-		bl _ctgpr_redirect_course_eabi_r3_r5;
+    mod_redirect_course_3,
+    mod_redirect_course_3_addr,
+        bl _ctgpr_redirect_course_eabi_r3_r5;
 )
 MOD_REL(
-	mod_redirect_course_4,
-	mod_redirect_course_4_addr,
-		bl _ctgpr_redirect_course_eabi_r0;
+    mod_redirect_course_4,
+    mod_redirect_course_4_addr,
+        bl _ctgpr_redirect_course_eabi_r0;
 )
 MOD_REL(
-	mod_redirect_course_5,
-	mod_redirect_course_5_addr,
-		b _ctgpr_redirect_course_r0_off_leaf32;
-	.globl _ctgpr_redirect_course_r0_off_leaf32_ret;
-	_ctgpr_redirect_course_r0_off_leaf32_ret:
+    mod_redirect_course_5,
+    mod_redirect_course_5_addr,
+        b _ctgpr_redirect_course_r0_off_leaf32;
+    .globl _ctgpr_redirect_course_r0_off_leaf32_ret;
+    _ctgpr_redirect_course_r0_off_leaf32_ret:
 )
 MOD_REL(
-	mod_redirect_course_6,
-	mod_redirect_course_6_addr,
-		bl _ctgpr_redirect_course_eabi_r0;
+    mod_redirect_course_6,
+    mod_redirect_course_6_addr,
+        bl _ctgpr_redirect_course_eabi_r0;
 )
 MOD_REL(
-	mod_redirect_course_7,
-	mod_redirect_course_7_addr,
-		bl _ctgpr_redirect_course_eabi_r0;
+    mod_redirect_course_7,
+    mod_redirect_course_7_addr,
+        bl _ctgpr_redirect_course_eabi_r0;
 )
 MOD_REL(
-	mod_redirect_course_8,
-	mod_redirect_course_7_addr + 0x1c,
-		bl _ctgpr_redirect_course_eabi_r0;
+    mod_redirect_course_8,
+    mod_redirect_course_7_addr + 0x1c,
+        bl _ctgpr_redirect_course_eabi_r0;
 )
 MOD_REL(
-	mod_redirect_course_9,
-	mod_redirect_course_9_addr,
-		lis r4,currentCourse@ha;
-		bl _ctgpr_get_currentCourse_r0_r4;
+    mod_redirect_course_9,
+    mod_redirect_course_9_addr,
+        lis r4,currentCourse@ha;
+        bl _ctgpr_get_currentCourse_r0_r4;
 )
 MOD_REL(
-	mod_redirect_course_10,
-	mod_redirect_course_10_addr,
-		lis r5,currentCourse@ha;
-		bl _ctgpr_get_currentCourse_r0_r5;
+    mod_redirect_course_10,
+    mod_redirect_course_10_addr,
+        lis r5,currentCourse@ha;
+        bl _ctgpr_get_currentCourse_r0_r5;
 )
 
 
@@ -375,49 +375,49 @@ MOD_REL(
  * track IDs.
  */
 MOD_REL(
-	mod_offset_battle_1,
-	mod_offset_battle_3_addr + 0x8,
-		addi r0,r3,0x4000;
+    mod_offset_battle_1,
+    mod_offset_battle_3_addr + 0x8,
+        addi r0,r3,0x4000;
 )
 MOD_REL(
-	mod_offset_battle_2,
-	mod_offset_battle_2_addr,
-		cmplwi r3,254;
+    mod_offset_battle_2,
+    mod_offset_battle_2_addr,
+        cmplwi r3,254;
 )
 MOD_REL(
-	mod_offset_battle_3,
-	mod_offset_battle_3_addr,
-		cmplwi r3,254;
+    mod_offset_battle_3,
+    mod_offset_battle_3_addr,
+        cmplwi r3,254;
 )
 MOD_REL(
-	mod_offset_battle_4,
-	mod_offset_battle_2_addr + 0x38,
-		addi r26,r27,0x4000;
+    mod_offset_battle_4,
+    mod_offset_battle_2_addr + 0x38,
+        addi r26,r27,0x4000;
 )
 MOD_REL(
-	mod_offset_battle_5,
-	mod_offset_battle_6_addr + 0x140,
-		b _battle_id_to_track_id;
+    mod_offset_battle_5,
+    mod_offset_battle_6_addr + 0x140,
+        b _battle_id_to_track_id;
 )
 MOD_REL(
-	mod_offset_battle_6,
-	mod_offset_battle_6_addr,
-		b _battle_id_to_track_id;
+    mod_offset_battle_6,
+    mod_offset_battle_6_addr,
+        b _battle_id_to_track_id;
 )
 MOD_REL(
-	mod_offset_battle_7,
-	mod_offset_battle_7_addr,
-		.short 0x4000;
+    mod_offset_battle_7,
+    mod_offset_battle_7_addr,
+        .short 0x4000;
 )
 MOD_REL(
-	mod_offset_battle_8,
-	mod_offset_battle_8_addr,
-		.short 0x4000;
+    mod_offset_battle_8,
+    mod_offset_battle_8_addr,
+        .short 0x4000;
 )
 MOD_REL(
-	mod_offset_battle_9,
-	mod_offset_battle_6_addr + 0x15c,
-		b _battle_id_to_track_id;
+    mod_offset_battle_9,
+    mod_offset_battle_6_addr + 0x15c,
+        b _battle_id_to_track_id;
 )
 
 /* I've forgotten what these do */

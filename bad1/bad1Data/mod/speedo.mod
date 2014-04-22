@@ -14,20 +14,20 @@
  * doesn't have fixed address, do a branch to 80000000, then we'll patch it up.
  */
 MOD_REL(
-	ovr1_1,
-	gx_draw,
-		/* This synthesises a forwards branch to 80000000, which is absurd
-			* but OVR1 will patch it. */
-		.int 0x48000000 - . + 0x80000000;
+    ovr1_1,
+    gx_draw,
+        /* This synthesises a forwards branch to 80000000, which is absurd
+            * but OVR1 will patch it. */
+        .int 0x48000000 - . + 0x80000000;
 )
 /* Branch from one of the methods that deals with characters so we can record
  * the speed to be displayed. Since OVR1 doesn't have fixed address, do a
  * branch to 80000000, then we'll patch it up.
  */
 MOD_REL(
-	ovr1_2,
-	ovr1_2_addr,
-		bl arena1low;
+    ovr1_2,
+    ovr1_2_addr,
+        bl arena1low;
 )
 
 #endif

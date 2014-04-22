@@ -25,4 +25,3 @@ $(BUILD)/bad0.elf: $(BUILD)/bad0code.o $(BUILD)/bad0data.o $(BUILD)/bad0.ld
 $(BUILD)/bad0.ld: $(BAD0)/bad0.ld $(game).ld
 	$(LOG)
 	$Qcat $^ > $@
-	

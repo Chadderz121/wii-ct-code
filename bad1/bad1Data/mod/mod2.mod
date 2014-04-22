@@ -44,9 +44,9 @@ MOD_DOL(
         addi r29,r30,16;
 
             /* load mod information */
-    0:		lwzu r3,16(r29);		/* address */
-            lwz r4,4(r29);		/* offset */
-            lwz r5,8(r29);		/* length */
+    0:      lwzu r3,16(r29);    /* address */
+            lwz r4,4(r29);      /* offset */
+            lwz r5,8(r29);      /* length */
 
             /* make absoulte */
             add r4,r4,r30;

@@ -4,15 +4,15 @@ WD := $(dir $(lastword $(MAKEFILE_LIST)))
 #       entries.
 SRC_MOD := \
 	$(WD)speedo.mod \
-    $(WD)blue_drag.mod \
-    $(WD)bmg.mod \
+	$(WD)blue_drag.mod \
+	$(WD)bmg.mod \
 	$(WD)ctww.mod \
 	$(WD)demo.mod \
-    $(WD)filter.mod \
+	$(WD)filter.mod \
 	$(WD)menu.mod \
 	$(WD)mod2.mod \
 	$(WD)random.mod \
-    $(WD)track_redirect.mod \
+	$(WD)track_redirect.mod \
 	$(WD)unban.mod \
 
 $(BUILD)/mod%.bin: $(BUILD)/mod%.elf
@@ -90,7 +90,7 @@ $(BUILD)/mod%.text.i: $(SRC_MOD) $(BUILD_ALL)/mod.text.o.inc $(BUILD)/mod%.inc
 $(BUILD_ALL)/mod.text.o.inc:
 	$(LOG)
 	$Qecho "#define MOD(id, addr, ...) .section .text.id; __VA_ARGS__" > $@
-	
+
 $(BUILD)/mod_all.inc:
 	$(LOG)
 	$Qecho "#define MOD_DOL(id, addr, ...) MOD(id, addr, ## __VA_ARGS__)" > $@
@@ -100,7 +100,7 @@ $(BUILD)/mod1.inc:
 	$(LOG)
 	$Qecho "#define MOD_DOL(id, addr, ...) MOD(id, addr, ## __VA_ARGS__)" > $@
 	$Qecho "#define MOD_REL(id, addr, ...) " >> $@
-	
+
 $(BUILD)/mod2.inc:
 	$(LOG)
 	$Qecho "#define MOD_DOL(id, addr, ...) " > $@
