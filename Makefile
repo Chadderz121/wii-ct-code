@@ -46,25 +46,22 @@ SFLAGS += -mregnames
 
 ifeq ("$(region)","E")
 	game = rmce
-	TARGETDIR ?= bin/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=U -I $(BUILD)
-	ALL = $(BUILD) $(TARGETDIR) $(TARGETS)
+	ALL = $(BUILD) $(TARGETS)
 else ifeq ("$(region)","J")
 	game = rmcj
-	TARGETDIR ?= bin/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=J -I $(BUILD)
-	ALL = $(BUILD) $(TARGETDIR) $(TARGETS)
+	ALL = $(BUILD) $(TARGETS)
 else ifeq ("$(region)","P")
 	game = rmcp
-	TARGETDIR ?= bin/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=P -I $(BUILD)
-	ALL = $(BUILD) $(TARGETDIR) $(TARGETS)
+	ALL = $(BUILD) $(TARGETS)
 else ifeq ("$(region)","*")
 	ALL = rmce rmcj rmcp
 else
@@ -73,8 +70,8 @@ endif
 
 SETTINGS := GAME=$(game) REGION=$(region) ONLINE_REGION=$(ONLINE_REGION) \
             ENABLE_CTWW=$(ENABLE_CTWW) ENABLE_UNBAN=$(ENABLE_UNBAN) \
-			ENABLE_FILTER=$(ENABLE_FILTER) ENABLE_BSHELL=$(ENABLE_BSHELL) \
-			ENABLE_SOM=$(ENABLE_SOM)
+            ENABLE_FILTER=$(ENABLE_FILTER) ENABLE_BSHELL=$(ENABLE_BSHELL) \
+            ENABLE_SOM=$(ENABLE_SOM)
 SFLAGS += $(addprefix --defsym ,$(SETTINGS))
 
 #==============================================================================
@@ -99,29 +96,47 @@ help:
 
 all: $(ALL)
 
-rmce:
+rmce: bin/rmce build/rmce
 	$(LOG)
-	$Qmkdir -p bin/$@
-	$Qmkdir -p build/$@
 	$Q-make --no-print-directory region=E all
-rmcj:
+rmcj: bin/rmcj build/rmcj
 	$(LOG)
-	$Qmkdir -p bin/$@
-	$Qmkdir -p build/$@
 	$Q-make --no-print-directory region=J all
-rmcp:
+rmcp: bin/rmcp build/rmcp
 	$(LOG)
-	$Qmkdir -p bin/$@
-	$Qmkdir -p build/$@
 	$Q-make --no-print-directory region=P all
-	
+
+bin/rmce: bin
+	$(LOG)
+	$Q-mkdir $@
+bin/rmcj: bin
+	$(LOG)
+	$Q-mkdir $@
+bin/rmcp: bin
+	$(LOG)
+	$Q-mkdir $@
+
+bin:
+	$(LOG)
+	$Q-mkdir $@
+
+build/rmce: build
+	$(LOG)
+	$Q-mkdir $@
+build/rmcj: build
+	$(LOG)
+	$Q-mkdir $@
+build/rmcp: build
+	$(LOG)
+	$Q-mkdir $@
+
+build:
+	$(LOG)
+	$Q-mkdir $@
+
 clean: 
 	$(LOG)
 	$Q-rm -rf build bin
-
-$(TARGETDIR):
-	$(LOG)
-	$Qmkdir -p $@
 
 #==============================================================================
 # bad0
@@ -134,5 +149,3 @@ include $(BAD0)/makefile.mk
 #==============================================================================
 
 include $(BAD1)/makefile.mk
-
-	
