@@ -46,18 +46,21 @@ SFLAGS += -mregnames
 
 ifeq ("$(region)","E")
 	game = rmce
+	TARGETDIR ?= bin/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=U -I $(BUILD)
 	ALL = $(BUILD) $(TARGETS)
 else ifeq ("$(region)","J")
 	game = rmcj
+	TARGETDIR ?= bin/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=J -I $(BUILD)
 	ALL = $(BUILD) $(TARGETS)
 else ifeq ("$(region)","P")
 	game = rmcp
+	TARGETDIR ?= bin/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=P -I $(BUILD)
