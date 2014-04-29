@@ -12,6 +12,8 @@
  * file system, songs, etc, to load from the custom track we want to load.
  */
  
+#if ENABLE_CTS == 1
+
 /* these patches redirect the game's cup -> track table to raceCupTable. */
 MOD_REL(
     mod_raceCupTable_1,
@@ -482,3 +484,5 @@ MOD_REL(
     mod2_47_addr + 0x50,
         li r0,1;
 )
+
+#endif

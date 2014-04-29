@@ -6,6 +6,8 @@
  * other displayed buttons.
  */
 
+#if ENABLE_CTS == 1
+
 /* Provides the methods:
  *  _ctgpr_wrap_page
  *  _ctgpr_menu_refresh
@@ -347,3 +349,5 @@ MOD_REL(
     mod2_129_addr,
         nop;
 )
+
+#endif

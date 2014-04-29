@@ -4,6 +4,8 @@
  * Causes the cup selection to be filtered when playing online.
  */
 
+#if ENABLE_CTS == 1
+
 MOD_DOL(
     mod1_8,
     0x80003554,
@@ -121,3 +123,5 @@ MOD_REL(
     cupCount,
         .int 0x8;
 )
+
+#endif

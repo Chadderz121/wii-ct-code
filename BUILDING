@@ -27,6 +27,8 @@ The following settings are recognised on the command line
         Whether or not to include Bean's Blue Shell drag code.
     ENABLE_SOM = 0 or 1 (default 1)
         Whether or not to enable the Speedometer.
+    ENABLE_CTS = 0 or 1 (default 1)
+        Whether or not to enable all CT related features (cups, slots, etc).
 
 Always run `make clean' if you want to rebuild with different settings.
 

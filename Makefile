@@ -14,6 +14,7 @@ ENABLE_UNBAN ?= 1
 ENABLE_FILTER ?= 1
 ENABLE_BSHELL ?= 1
 ENABLE_SOM ?= 1
+ENABLE_CTS ?= 1
 
 #==============================================================================
 # Programs
@@ -74,7 +75,7 @@ endif
 SETTINGS := GAME=$(game) REGION=$(region) ONLINE_REGION=$(ONLINE_REGION) \
             ENABLE_CTWW=$(ENABLE_CTWW) ENABLE_UNBAN=$(ENABLE_UNBAN) \
             ENABLE_FILTER=$(ENABLE_FILTER) ENABLE_BSHELL=$(ENABLE_BSHELL) \
-            ENABLE_SOM=$(ENABLE_SOM)
+            ENABLE_SOM=$(ENABLE_SOM) ENABLE_CTS=$(ENABLE_CTS)
 SFLAGS += $(addprefix --defsym ,$(SETTINGS))
 
 #==============================================================================

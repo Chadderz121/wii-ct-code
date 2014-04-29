@@ -5,6 +5,8 @@
  * of always Luigi Circuit.
  */
 
+#if ENABLE_CTS == 1
+
 MOD_REL(
     mod_onDemo,
     mod_onDemo_addr,
@@ -63,3 +65,5 @@ MOD_DOL(
             addi r1,r1,16;
             blr;
 )
+
+#endif

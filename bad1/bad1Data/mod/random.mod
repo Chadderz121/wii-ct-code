@@ -5,6 +5,7 @@
  * selects from the six cups available.
  */
 
+#if ENABLE_CTS == 1
 
 MOD_DOL(
     mod1_9,
@@ -621,6 +622,8 @@ MOD_DOL(
         b       _install_patch_ret;
 )
 
+#if ENABLE_CTWW == 1
+
 /* Starts the randomiser on timeout */
 MOD_REL(
     mod_random_enable,
@@ -644,3 +647,6 @@ MOD_REL(
     mod_timeout3_addr,
         blr;
 )
+
+#endif
+#endif

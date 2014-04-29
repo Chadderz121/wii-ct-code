@@ -7,7 +7,10 @@
 
 bad1data: $(BUILD)/bad1data.o
 
-$(BUILD)/bad1data.o: $(BAD1)/bad1data/bad1data.s $(BUILD)/cup1.bin $(BUILD)/crs1.bin $(BUILD)/mod1.bin $(BUILD)/mod2.bin $(if $(filter $(ENABLE_SOM),1), $(BUILD)/ovr1.bin, )
+$(BUILD)/bad1data.o: $(BAD1)/bad1data/bad1data.s \
+        $(if $(filter $(ENABLE_CTS),1),$(BUILD)/cup1.bin $(BUILD)/crs1.bin, ) \
+        $(BUILD)/mod1.bin $(BUILD)/mod2.bin \
+        $(if $(filter $(ENABLE_SOM),1), $(BUILD)/ovr1.bin, )
 	$(LOG)
 	$Q$(AS) $(SFLAGS) $< -o $@
 

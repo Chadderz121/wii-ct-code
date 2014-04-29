@@ -1,8 +1,12 @@
 .include "bad1/bad1Code/methods/findDataSection.s"
-.include "bad1/bad1Code/methods/runCup1.s"
-.include "bad1/bad1Code/methods/runCrs1.s"
+.if ENABLE_CTS == 1
+    .include "bad1/bad1Code/methods/runCup1.s"
+    .include "bad1/bad1Code/methods/runCrs1.s"
+.endif
 .include "bad1/bad1Code/methods/runMod1.s"
-.include "bad1/bad1Code/methods/runOvr1.s"
+.if ENABLE_SOM == 1
+    .include "bad1/bad1Code/methods/runOvr1.s"
+.endif
 .include "bad1/bad1Code/methods/copyMod2.s"
 
 _methodRunBad1Data:
@@ -27,6 +31,7 @@ _methodRunBad1Data:
     bl _methodCheckCanProceed
 .endif
 
+.if ENABLE_CTS == 1
     #call run cup1
     mr r3,r31
     bl _methodRunCup1
@@ -36,6 +41,7 @@ _methodRunBad1Data:
     mr r3,r31
     bl _methodRunCrs1
     bl _methodCheckCanProceed
+.endif
 
     #call copy mod2
     mr r3,r31

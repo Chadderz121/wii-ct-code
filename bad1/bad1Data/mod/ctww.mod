@@ -33,7 +33,9 @@ MOD_REL(
         lis r3,0x5;
         addi r4,r3,0x3020;
 )
-    
+
+#if ENABLE_CTS == 1
+
 /* These mods replace the standard mechanics for determining if a track vote
  * is valid online. The old check was simply a less than, but in CTGP-R this
  * is much more compilcated, related to the number of tracks. 0x42 and 0x43
@@ -335,4 +337,5 @@ MOD_REL(
         .short 0x00fe;
 )
 
+#endif
 #endif
