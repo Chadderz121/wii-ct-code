@@ -36,6 +36,7 @@ PROVIDE(random_last_cup = 0x80000E03);
 PROVIDE(random_timeout = 0x80000E04);
 PROVIDE(random_has_seed = 0x80000E08);
 PROVIDE(random_seed = 0x80000E0c);
+PROVIDE(saved_cup = 0x80000E10);
 
 /* Speedometer symbols */
 PROVIDE(SpeedCounter = 0x80000DE8);

@@ -617,8 +617,9 @@ MOD_DOL(
     _install_patch:
         lwz     r5,1156(r3);
         lwz     r5,204(r5);
-        stw     r5,3600(r4);
-        addi    r4,r4,15596;
+        /* assumes startBehaviour@ha == saved_cup@ha */
+        stw     r5,saved_cup@l(r4);
+        addi    r4,r4,startBehaviour@l;
         b       _install_patch_ret;
 )
 

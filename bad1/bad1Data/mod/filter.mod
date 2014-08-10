@@ -16,7 +16,7 @@ MOD_DOL(
 
     .globl _ctgpr_scroll_toscreen_patch;
     _ctgpr_scroll_toscreen_patch:
-        lwz     r26,3600(r5);
+        lwz     r26,saved_cup@l(r5);
         lwz     r4,raceCupTable@l(r5);
         lmw     r30,cupCount@l(r5);
         subf.   r26,r31,r26;
