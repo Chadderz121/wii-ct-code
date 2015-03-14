@@ -14,7 +14,6 @@ PROVIDE(main = 0x800060A4);
 PROVIDE(initRegs = 0x80006210);
 PROVIDE(mod_mod0_entry_addr = 0x8004bfcc);
 PROVIDE(gx_draw = 0x8016E9D0);
-PROVIDE(mod_unban_addr = 0x801d0d70);
 PROVIDE(malloc = 0x80229734);
 PROVIDE(branch_to_mod2_addr = 0x8023B150);
 PROVIDE(mod_mod0_texture_addr = 0x80244EA8);
