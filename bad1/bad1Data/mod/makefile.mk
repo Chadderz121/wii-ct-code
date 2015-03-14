@@ -13,7 +13,6 @@ SRC_MOD := \
 	$(WD)mod2.mod \
 	$(WD)random.mod \
 	$(WD)track_redirect.mod \
-	$(WD)unban.mod \
 
 $(BUILD)/mod%.bin: $(BUILD)/mod%.elf
 	$(LOG)

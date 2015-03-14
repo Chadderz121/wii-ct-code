@@ -19,8 +19,6 @@ The following settings are recognised on the command line
         Replace the region id for online regional races.
     ENABLE_CTWW = 0 or 1 (default 1)
         Whether or not to enable the 'CTWW' feature.
-    ENABLE_UNBAN = 0 or 1 (default 1)
-        Whether or not to include an unban code.
     ENABLE_FILTER = 0 or 1 (default 1)
         Whether or not to prevent Nintendo tracks in CTWW.
     ENABLE_BSHELL = 0 or 1 (default 1)
