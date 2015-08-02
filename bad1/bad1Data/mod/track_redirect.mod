@@ -422,6 +422,103 @@ MOD_REL(
         b _battle_id_to_track_id;
 )
 
+
+/* These mods add proper CT-CODE logic to the "In Order" and "Random" VS settings.
+ * Prior to a VS game, a pool of 32 course IDs is generated, which determines what
+ * course is played next upon selecting "Next Course". Not only do we need to make
+ * custom tracks poolable (rather than just their special slot IDs), we must also
+ * redirect the "Next Course" handler to take advantage of CT-CODE.
+ * 
+ * For reference: "Random" picks the 1st course, pools 31 more in subsequent order,
+ * then randomly permutes each pooled course with another. Consequently, on CT-CODE,
+ * courses that are 32+ slots apart from each other are never pooled together.
+ */
+MOD_REL(
+    mod_redirect_vs_1,
+    mod_redirect_vs_1_addr,
+        /* Refresh r4 against current track ID. "In Order" passes its SLOT as parameter. */
+        lis r6, raceCupTable@ha;
+        lwz r4, currentCourse@l(r6);
+        stw r0, 52(r1);
+        lwz r6, raceCupTable@l(r6);
+)
+MOD_REL(
+    mod_redirect_vs_2,
+    mod_redirect_vs_1_addr + 0x1C,
+        lis r26, raceCupTable@ha;
+)
+MOD_REL(
+    mod_redirect_vs_3,
+    mod_redirect_vs_1_addr + 0x28,
+        lwz r26, raceCupTable@l(r26);
+)
+MOD_REL(
+    mod_redirect_vs_4,
+    mod_redirect_vs_1_addr + 0x50,
+        /* Break from 2 nested loops, rather than using a standard C break + r8 check. */
+        b _ctgpr_redirect_vs_locate_course_done;
+)
+MOD_REL(
+    mod_redirect_vs_5,
+    mod_redirect_vs_1_addr + 0x68,
+        lis r8, totalCupCount@ha;
+        lwz r8, totalCupCount@l(r8);
+        cmpw r9, r8;
+)
+MOD_REL(
+    mod_redirect_vs_6,
+    mod_redirect_vs_1_addr + 0x78,
+        /* Normally, the capacity of the VS track pool depends on how many cups (namely,
+         * courses) are unlocked. But since CT-CODE unlocks them all, and since the pool
+         * only has room for up to 32 course IDs, we're going to fully use this capacity.
+         */
+    .globl _ctgpr_redirect_vs_locate_course_done;
+    _ctgpr_redirect_vs_locate_course_done:
+        li r0, 32;
+        stw r0, 0xF8(r3);
+        b _ctgpr_redirect_vs_fill_track_pool;
+)
+MOD_REL(
+    mod_redirect_vs_7,
+    mod_redirect_vs_1_addr + 0x11C,
+    .globl _ctgpr_redirect_vs_fill_track_pool;
+    _ctgpr_redirect_vs_fill_track_pool:
+)
+MOD_REL(
+    mod_redirect_vs_8,
+    mod_redirect_vs_1_addr + 0x1F4,
+        /* During pool generation, after the last cup, we wrap back to the first. */
+        lis r25, totalCupCount@ha;
+        lwz r25, totalCupCount@l(r25);
+        addi r3, r29, 1;
+        divw r0, r3, r25;
+        mullw r0, r0, r25;
+        sub r29, r3, r0;
+)
+MOD_REL(
+    mod_redirect_vs_9,
+    mod_redirect_vs_2_addr,
+        /* Now for the finishing touch: fix our almighty "Next Course" button! */
+        bl _ctgpr_redirect_course_eabi_r3_r4;
+)
+
+/* These mods ensure that the correct course is loaded upon starting a Random VS. */
+MOD_REL(
+    mod_redirect_vs_10,
+    mod_redirect_vs_3_addr,
+        mr r5, r31;
+        lwz r7, 0x98(r4);
+        lwz r3, -0x28D8(r28); /* PAL offset!!!! FIXME: rewrite this mess */
+        lwz r31, 0x78(r7);
+)
+MOD_REL(
+    mod_redirect_vs_11,
+    mod_redirect_vs_3_addr + 0x14,
+        bl _ctgpr_redirect_course;
+        mr r3, r30;
+)
+
+
 /* I've forgotten what these do */
 MOD_REL(
     mod_ctgpr_func_4394_1,
