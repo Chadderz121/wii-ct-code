@@ -462,7 +462,6 @@ MOD_REL(
          * courses) are unlocked. But since CT-CODE unlocks them all, and since the pool
          * only has room for up to 32 course IDs, we're going to fully use this capacity.
          */
-    .globl _ctgpr_redirect_vs_locate_course_done;
     _ctgpr_redirect_vs_locate_course_done:
         li r0, 32;
         stw r0, 0xF8(r3);
@@ -471,7 +470,6 @@ MOD_REL(
 MOD_REL(
     mod_redirect_vs_5,
     mod_redirect_vs_1_addr + 0x11C,
-    .globl _ctgpr_redirect_vs_fill_track_pool;
     _ctgpr_redirect_vs_fill_track_pool:
         lis r26, raceCupTable@ha;
 )
@@ -502,9 +500,9 @@ MOD_REL(
 MOD_REL(
     mod_redirect_vs_9,
     mod_redirect_vs_3_addr,
-        mr r5, r31;
         lwz r7, 0x98(r4);
-        lwz r3, -0x28D8(r28); /* PAL offset!!!! FIXME: rewrite this mess */
+        lwz r3, -0x28D8(r28); /* FIXME: PAL offset!!! How do I keep it intact?  */
+        mr r5, r31;
         lwz r31, 0x78(r7);
 )
 MOD_REL(
