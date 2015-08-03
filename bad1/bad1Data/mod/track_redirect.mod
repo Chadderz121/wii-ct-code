@@ -436,7 +436,7 @@ MOD_REL(
 MOD_REL(
     mod_redirect_vs_1,
     mod_redirect_vs_1_addr,
-        /* Refresh r4 against current track ID. "In Order" passes its SLOT as parameter. */
+        /* Reload current track ID into param r4. "In Order" passes us its slot instead. */
         lis r6, raceCupTable@ha;
         lwz r4, currentCourse@l(r6);
         stw r0, 52(r1);
@@ -444,29 +444,19 @@ MOD_REL(
 )
 MOD_REL(
     mod_redirect_vs_2,
-    mod_redirect_vs_1_addr + 0x1C,
-        lis r26, raceCupTable@ha;
-)
-MOD_REL(
-    mod_redirect_vs_3,
-    mod_redirect_vs_1_addr + 0x28,
-        lwz r26, raceCupTable@l(r26);
-)
-MOD_REL(
-    mod_redirect_vs_4,
     mod_redirect_vs_1_addr + 0x50,
         /* Break from 2 nested loops, rather than using a standard C break + r8 check. */
         b _ctgpr_redirect_vs_locate_course_done;
 )
 MOD_REL(
-    mod_redirect_vs_5,
+    mod_redirect_vs_3,
     mod_redirect_vs_1_addr + 0x68,
         lis r8, totalCupCount@ha;
         lwz r8, totalCupCount@l(r8);
         cmpw r9, r8;
 )
 MOD_REL(
-    mod_redirect_vs_6,
+    mod_redirect_vs_4,
     mod_redirect_vs_1_addr + 0x78,
         /* Normally, the capacity of the VS track pool depends on how many cups (namely,
          * courses) are unlocked. But since CT-CODE unlocks them all, and since the pool
@@ -479,13 +469,19 @@ MOD_REL(
         b _ctgpr_redirect_vs_fill_track_pool;
 )
 MOD_REL(
-    mod_redirect_vs_7,
+    mod_redirect_vs_5,
     mod_redirect_vs_1_addr + 0x11C,
     .globl _ctgpr_redirect_vs_fill_track_pool;
     _ctgpr_redirect_vs_fill_track_pool:
+        lis r26, raceCupTable@ha;
 )
 MOD_REL(
-    mod_redirect_vs_8,
+    mod_redirect_vs_6,
+    mod_redirect_vs_1_addr + 0x128,
+        lwz r26, raceCupTable@l(r26);
+)
+MOD_REL(
+    mod_redirect_vs_7,
     mod_redirect_vs_1_addr + 0x1F4,
         /* During pool generation, after the last cup, we wrap back to the first. */
         lis r25, totalCupCount@ha;
@@ -496,7 +492,7 @@ MOD_REL(
         sub r29, r3, r0;
 )
 MOD_REL(
-    mod_redirect_vs_9,
+    mod_redirect_vs_8,
     mod_redirect_vs_2_addr,
         /* Now for the finishing touch: fix our almighty "Next Course" button! */
         bl _ctgpr_redirect_course_eabi_r3_r4;
@@ -504,7 +500,7 @@ MOD_REL(
 
 /* These mods ensure that the correct course is loaded upon starting a Random VS. */
 MOD_REL(
-    mod_redirect_vs_10,
+    mod_redirect_vs_9,
     mod_redirect_vs_3_addr,
         mr r5, r31;
         lwz r7, 0x98(r4);
@@ -512,7 +508,7 @@ MOD_REL(
         lwz r31, 0x78(r7);
 )
 MOD_REL(
-    mod_redirect_vs_11,
+    mod_redirect_vs_10,
     mod_redirect_vs_3_addr + 0x14,
         bl _ctgpr_redirect_course;
         mr r3, r30;
