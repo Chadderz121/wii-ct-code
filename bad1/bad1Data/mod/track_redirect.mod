@@ -501,12 +501,15 @@ MOD_REL(
     mod_redirect_vs_9,
     mod_redirect_vs_3_addr,
         lwz r7, 0x98(r4);
-        lwz r3, -0x28D8(r28); /* FIXME: PAL offset!!! How do I keep it intact?  */
-        mr r5, r31;
-        lwz r31, 0x78(r7);
+        lwz r3, raceData@l(r28);
 )
 MOD_REL(
     mod_redirect_vs_10,
+    mod_redirect_vs_3_addr + 0x0C,
+        lwz r31, 0x78(r7);
+)
+MOD_REL(
+    mod_redirect_vs_11,
     mod_redirect_vs_3_addr + 0x14,
         bl _ctgpr_redirect_course;
         mr r3, r30;
