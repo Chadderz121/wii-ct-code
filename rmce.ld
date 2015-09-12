@@ -31,6 +31,7 @@ PROVIDE(mod2_13_addr = 0x80550c5c);
 PROVIDE(displayTimer = 0x805BB418);
 PROVIDE(mod_redirect_course_6_addr = 0x805cc0b8);
 PROVIDE(mod_offset_battle_8_addr = 0x805ccc6e);
+PROVIDE(mod_redirect_vs_4_addr = 0x805cd52c);
 PROVIDE(mod_redirect_vs_1_addr = 0x805cd698);
 PROVIDE(mod_raceCupTable_7_addr = 0x805ce21c);
 PROVIDE(mod_onScrollTime_addr = 0x805D4630);

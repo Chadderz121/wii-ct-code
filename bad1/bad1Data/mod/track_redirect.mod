@@ -458,14 +458,32 @@ MOD_REL(
 MOD_REL(
     mod_redirect_vs_4,
     mod_redirect_vs_1_addr + 0x78,
-        /* Normally, the capacity of the VS track pool depends on how many cups (namely,
-         * courses) are unlocked. But since CT-CODE unlocks them all, and since the pool
-         * only has room for up to 32 course IDs, we're going to fully use this capacity.
-         */
     _ctgpr_redirect_vs_locate_course_done:
-        li r0, 32;
-        stw r0, 0xF8(r3);
-        b _ctgpr_redirect_vs_fill_track_pool;
+        /* We adjust cup wrapping depending on whether the first course belongs to a CT
+         * cup or a Nintendo cup, thus restricting the entire pool to the same category.
+         * This helps ensure that Random VS will only pick CTs; never a Nintendo course.
+         * 
+         * r9/r10: the lower/upper cup boundaries. r29: cup index of the 1st course pick.
+         * r0: VS pool capacity. The game normally adjusts it to the number of courses
+         *     unlocked (up to 32). But why check for cup unlocks when we have CT-CODE!
+         */
+        li     r9, 0;
+        li     r10, 8;
+        li     r0, 32;
+        cmpwi  r29, 8;
+        blt-   0f;
+
+        /* CT wrapping. Just in case, if we have <32 CTs then reduce the pool to those. */
+        lis    r10, totalCupCount@ha;
+        lwz    r10, totalCupCount@l(r10);
+        li     r9, 8;
+        cmpwi  r10, 16;
+        bge+   0f;
+        subi   r0, r10, 8;
+        slwi   r0, r0, 2;
+
+    0:  stw    r0, 0xF8(r3);
+        b      _ctgpr_redirect_vs_fill_track_pool;
 )
 MOD_REL(
     mod_redirect_vs_5,
@@ -481,11 +499,11 @@ MOD_REL(
 MOD_REL(
     mod_redirect_vs_7,
     mod_redirect_vs_1_addr + 0x1F4,
-        /* During pool generation, after the last cup, we wrap back to the first. */
-        lis r25, totalCupCount@ha;
-        lwz r25, totalCupCount@l(r25);
+        /* Moving from one cup to another during pool generation. Make sure to wrap. */
+        sub r25, r10, r9;
+        nop;
         addi r3, r29, 1;
-        divw r0, r3, r25;
+        divw r0, r3, r10;
         mullw r0, r0, r25;
         sub r29, r3, r0;
 )
@@ -513,6 +531,30 @@ MOD_REL(
     mod_redirect_vs_3_addr + 0x14,
         bl _ctgpr_redirect_course;
         mr r3, r30;
+)
+
+MOD_REL(
+    mod_redirect_vs_12,
+    mod_redirect_vs_4_addr,
+        /* Upon starting a Random VS, pick a random CT instead of a Nintendo course.
+         * Thanks to our "In Order" logic, every other course will be a custom track.
+         */
+        lis r31, totalCupCount@ha;
+        lwz r3, totalCupCount@l(r31);
+        subi r3, r3, 8;
+        slwi r3, r3, 2;
+        bl _ctgpr_rng;
+        addi r3, r3, 32;
+        lwz r4, raceCupTable@l(r31);
+        slwi r3, r3, 2;
+        lwzx r27, r4, r3;
+        stw r27, currentCourse@l(r31);
+        b _ctgpr_redirect_vs_random_first_course_picked;
+)
+MOD_REL(
+    mod_redirect_vs_13,
+    mod_redirect_vs_4_addr + 0xF8,
+    _ctgpr_redirect_vs_random_first_course_picked:
 )
 
 
