@@ -6,10 +6,10 @@
 #==============================================================================
 .PHONY: bad0
 
-include $(BAD0)/bad0code/makefile.mk
-include $(BAD0)/bad0data/makefile.mk
+include $(BAD0)/bad0Code/makefile.mk
+include $(BAD0)/bad0Data/makefile.mk
 
-bad0: bad0code bad0data $(TARGETDIR)/boot_code.bin $(TARGETDIR)/boot_data.bin
+bad0: bad0Code bad0Data $(TARGETDIR)/boot_code.bin $(TARGETDIR)/boot_data.bin
 
 $(TARGETDIR)/boot_code.bin: $(BUILD)/bad0.elf
 	$(LOG)

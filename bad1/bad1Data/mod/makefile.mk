@@ -26,7 +26,7 @@ $(BUILD)/mod%.elf.ld: $(SRC_MOD) $(BUILD_ALL)/mod.elf.ld.inc $(BUILD)/mod%.inc $
 	$(LOG)
 	$Qecho "SECTIONS { .data : { *(.data); }" > $@
 	$Qcat $(BUILD_ALL)/mod.elf.ld.inc $(BUILD)/mod$*.inc $(SRC_MOD) \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - >> $@
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - >> $@
 	$Qecho "mod_end = .; /DISCARD/ : { *(*); } }" >> $@
 	$Qcat $(game).ld >> $@
 
@@ -41,7 +41,7 @@ $(BUILD)/mod%.data.o: $(BUILD)/mod%.data.s
 $(BUILD)/mod%.data.s: $(BUILD)/mod%.data.i
 	$(LOG)
 	$Qcat $< \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - \
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - \
 	| sed "s/;/\n/g" > $@
 
 $(BUILD)/mod%.data.i: $(SRC_MOD) $(BUILD_ALL)/mod.data.o.inc $(BUILD)/mod%.inc
@@ -63,7 +63,7 @@ $(BUILD)/mod.text.elf.ld: $(SRC_MOD) $(BUILD_ALL)/mod.text.elf.ld.inc $(BUILD)/m
 	$(LOG)
 	$Qecho "SECTIONS {" > $@
 	$Qcat $(BUILD_ALL)/mod.text.elf.ld.inc $(BUILD)/mod_all.inc $(SRC_MOD) \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - >> $@
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - >> $@
 	$Qecho "}" >> $@
 	$Qcat $(game).ld >> $@
 
@@ -78,7 +78,7 @@ $(BUILD)/mod%.text.o: $(BUILD)/mod%.text.s
 $(BUILD)/mod%.text.s: $(BUILD)/mod%.text.i
 	$(LOG)
 	$Qcat $< \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - \
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - \
 	| sed "s/;/\n/g" > $@
 
 $(BUILD)/mod%.text.i: $(SRC_MOD) $(BUILD_ALL)/mod.text.o.inc $(BUILD)/mod%.inc

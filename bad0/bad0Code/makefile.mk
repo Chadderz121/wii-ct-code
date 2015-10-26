@@ -1,13 +1,13 @@
 #==============================================================================
-# bad0/bad0code/makefile by Alex Chadwick
+# bad0/bad0Code/makefile by Alex Chadwick
 #
-# Generates bad0code.bin, a code to be inserted into the main.dol to load 
+# Generates bad0Code.bin, a code to be inserted into the main.dol to load 
 # ctgpr_code.tex0
 #==============================================================================
-.PHONY: bad0code
+.PHONY: bad0Code
 
-bad0code: $(BUILD)/bad0code.o
+bad0Code: $(BUILD)/bad0code.o
 
-$(BUILD)/bad0code.o: $(BAD0)/bad0code/main.s
+$(BUILD)/bad0code.o: $(BAD0)/bad0Code/main.s
 	$(LOG)
 	$Q$(AS) $(SFLAGS) $< -o $@

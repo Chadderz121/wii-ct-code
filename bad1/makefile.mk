@@ -5,10 +5,10 @@
 #==============================================================================
 .PHONY: bad1
 
-include $(BAD1)/bad1code/makefile.mk
-include $(BAD1)/bad1data/makefile.mk
+include $(BAD1)/bad1Code/makefile.mk
+include $(BAD1)/bad1Data/makefile.mk
 
-bad1: bad1code bad1data $(TARGETDIR)/ctgpr_code.tex0
+bad1: bad1Code bad1Data $(TARGETDIR)/ctgpr_code.tex0
 
 $(TARGETDIR)/ctgpr_code.tex0: $(BUILD)/ctgpr_code.o
 	$(LOG)
