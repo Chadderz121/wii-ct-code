@@ -1,5 +1,6 @@
 #==============================================================================
 # makefile by Alex Chadwick
+# 'SZSTOOLSDIR' extention by Dirk Clemens (Wiimm)
 #
 # makefile script for the CTGP-R Mario Kart Wii modification software.
 #==============================================================================
@@ -47,6 +48,7 @@ SFLAGS += -mregnames
 ifeq ("$(region)","E")
 	game = rmce
 	TARGETDIR ?= bin/$(game)
+	SZSTOOLSDIR ?= szs-tools/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=U -I $(BUILD)
@@ -54,6 +56,7 @@ ifeq ("$(region)","E")
 else ifeq ("$(region)","J")
 	game = rmcj
 	TARGETDIR ?= bin/$(game)
+	SZSTOOLSDIR ?= szs-tools/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=J -I $(BUILD)
@@ -61,12 +64,16 @@ else ifeq ("$(region)","J")
 else ifeq ("$(region)","P")
 	game = rmcp
 	TARGETDIR ?= bin/$(game)
+	SZSTOOLSDIR ?= szs-tools/$(game)
 	BUILD ?= build/$(game)
 	BUILD_ALL ?= build
 	SFLAGS += --defsym region=P -I $(BUILD)
 	ALL = $(BUILD) $(TARGETS)
 else ifeq ("$(region)","*")
 	ALL = rmce rmcj rmcp
+	# define some dummies to avoid warnings
+	TARGETDIR ?= bin/dummy
+	SZSTOOLSDIR ?= szs-tools/dummy
 else
 	$(error 'region' is not 'E', 'J', 'P' or '*')
 endif
@@ -99,47 +106,31 @@ help:
 
 all: $(ALL)
 
-rmce: bin/rmce build/rmce
+rmce: bin/rmce build/rmce szs-tools/rmce
 	$(LOG)
 	$Q-make --no-print-directory region=E all
-rmcj: bin/rmcj build/rmcj
+rmcj: bin/rmcj build/rmcj szs-tools/rmcj
 	$(LOG)
 	$Q-make --no-print-directory region=J all
-rmcp: bin/rmcp build/rmcp
+rmcp: bin/rmcp build/rmcp szs-tools/rmcp
 	$(LOG)
 	$Q-make --no-print-directory region=P all
 
-bin/rmce: bin
+bin/rmce bin/rmcj bin/rmcp:
 	$(LOG)
-	$Q-mkdir $@
-bin/rmcj: bin
-	$(LOG)
-	$Q-mkdir $@
-bin/rmcp: bin
-	$(LOG)
-	$Q-mkdir $@
+	$Q-mkdir -p $@
 
-bin:
+build/rmce build/rmcj build/rmcp:
 	$(LOG)
-	$Q-mkdir $@
+	$Q-mkdir -p $@
 
-build/rmce: build
+szs-tools/rmce szs-tools/rmcj szs-tools/rmcp:
 	$(LOG)
-	$Q-mkdir $@
-build/rmcj: build
-	$(LOG)
-	$Q-mkdir $@
-build/rmcp: build
-	$(LOG)
-	$Q-mkdir $@
-
-build:
-	$(LOG)
-	$Q-mkdir $@
+	$Q-mkdir -p $@
 
 clean: 
 	$(LOG)
-	$Q-rm -rf build bin
+	$Q-rm -rf build bin szs-tools
 
 #==============================================================================
 # bad0
