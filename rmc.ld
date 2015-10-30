@@ -42,4 +42,3 @@ PROVIDE(saved_cup = 0x80000E10);
 PROVIDE(SpeedCounter = 0x80000DE8);
 PROVIDE(SpeedValue = 0x80000DEC);
 PROVIDE(SpeedFloat = 0x80000DF0);
-
