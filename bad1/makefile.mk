@@ -6,21 +6,27 @@
 #==============================================================================
 .PHONY: bad1 
 
+# list of files that can be copied to szs-tools
+SZS_COPY := mod1 mod2 ovr1
+
 include $(BAD1)/bad1Code/makefile.mk
 include $(BAD1)/bad1Data/makefile.mk
 
-bad1: bad1Code bad1Data $(TARGETDIR)/ctgpr_code.tex0 szstools1 
+bad1: bad1Code bad1Data $(TARGETDIR)/ctgpr_code.tex0 \
+	$(SZS_COPY:%=$(SZSTOOLSDIR)/%.bin) $(SZSTOOLSDIR)/bad1code.bin
 
 $(TARGETDIR)/ctgpr_code.tex0: $(BUILD)/ctgpr_code.o
 	$(LOG)
 	$Q$(OC) -O binary $< $@
 
-.PHONY: szstools1
-szstools1: $(BUILD)/ctgpr_code.o $(BUILD)/bad1.bin
+$(SZS_COPY:%=$(SZSTOOLSDIR)/%.bin) : $(BUILD)/$(notdir $@)
 	$(LOG)
-	$Qcp $(BUILD)/{mod1,mod2,ovr1}.bin $(SZSTOOLSDIR)/
-	$Qhead -c1824 $(BUILD)/bad1.bin >$(SZSTOOLSDIR)/bad1code.bin
-	$Qchmod a-x $(SZSTOOLSDIR)/*.bin
+	$Q cp $(BUILD)/$(notdir $@) $(SZSTOOLSDIR)/
+	$Q chmod a-x $(SZSTOOLSDIR)/*.bin
+
+$(SZSTOOLSDIR)/bad1code.bin : $(BUILD)/bad1.bin
+	$Q head -c1824 $(BUILD)/bad1.bin >$(SZSTOOLSDIR)/bad1code.bin
+	$Q chmod a-x $(SZSTOOLSDIR)/bad1code.bin
 
 $(BUILD)/ctgpr_code.o: $(BAD1)/tex0.s $(BUILD)/bad1.bin
 	$(LOG)
@@ -37,3 +43,4 @@ $(BUILD)/bad1.elf: $(BUILD)/bad1code.o $(BUILD)/bad1data.o $(BUILD)/bad1.ld
 $(BUILD)/bad1.ld: $(BAD1)/bad1.ld $(game).ld
 	$(LOG)
 	$Qcat $^ > $@
+

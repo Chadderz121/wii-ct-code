@@ -38,10 +38,11 @@ LOG ?= @echo $@
 #==============================================================================
 # Output configuration
 #==============================================================================
-region ?= *
-BAD0 ?= bad0
-BAD1 ?= bad1
-TARGETS ?= bad0 bad1
+region	?= *
+BAD0	?= bad0
+BAD1	?= bad1
+TARGETS	?= bad0 bad1
+GAMES	?= rmce rmcj rmcp
 
 SFLAGS += -mregnames
 
@@ -109,24 +110,34 @@ all: $(ALL)
 rmce: bin/rmce build/rmce szs-tools/rmce
 	$(LOG)
 	$Q-make --no-print-directory region=E all
+
 rmcj: bin/rmcj build/rmcj szs-tools/rmcj
 	$(LOG)
 	$Q-make --no-print-directory region=J all
+
 rmcp: bin/rmcp build/rmcp szs-tools/rmcp
 	$(LOG)
 	$Q-make --no-print-directory region=P all
 
-bin/rmce bin/rmcj bin/rmcp:
-	$(LOG)
-	$Q-mkdir -p $@
+#--- create directories
 
-build/rmce build/rmcj build/rmcp:
+$(GAMES:rmc%=bin/rmc%) : bin
 	$(LOG)
-	$Q-mkdir -p $@
+	$Q- test -d $@ || mkdir $@
 
-szs-tools/rmce szs-tools/rmcj szs-tools/rmcp:
+$(GAMES:rmc%=build/rmc%) : build
 	$(LOG)
-	$Q-mkdir -p $@
+	$Q- test -d $@ || mkdir $@
+
+$(GAMES:rmc%=szs-tools/rmc%) : szs-tools
+	$(LOG)
+	$Q- test -d $@ || mkdir $@
+
+bin build szs-tools:
+	$(LOG)
+	$Q-test -d $@ || mkdir $@
+
+#--- clean
 
 clean: 
 	$(LOG)
