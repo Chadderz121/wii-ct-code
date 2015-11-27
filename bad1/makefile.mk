@@ -21,12 +21,12 @@ $(TARGETDIR)/ctgpr_code.tex0: $(BUILD)/ctgpr_code.o
 
 $(SZS_COPY:%=$(SZSTOOLSDIR)/%.bin) : $(BUILD)/$(notdir $@)
 	$(LOG)
-	$Q cp $(BUILD)/$(notdir $@) $(SZSTOOLSDIR)/
-	$Q chmod a-x $(SZSTOOLSDIR)/*.bin
+	$Q cp $(BUILD)/$(notdir $@) $@
+	$Q chmod a-x $@
 
 $(SZSTOOLSDIR)/bad1code.bin : $(BUILD)/bad1.bin
-	$Q head -c1824 $(BUILD)/bad1.bin >$(SZSTOOLSDIR)/bad1code.bin
-	$Q chmod a-x $(SZSTOOLSDIR)/bad1code.bin
+	$Q head -c1824 $(BUILD)/bad1.bin >$@
+	$Q chmod a-x $@
 
 $(BUILD)/ctgpr_code.o: $(BAD1)/tex0.s $(BUILD)/bad1.bin
 	$(LOG)

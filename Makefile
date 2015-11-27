@@ -121,15 +121,15 @@ rmcp: bin/rmcp build/rmcp szs-tools/rmcp
 
 #--- create directories
 
-$(GAMES:rmc%=bin/rmc%) : bin
+$(GAMES:%=bin/%) : bin
 	$(LOG)
 	$Q- test -d $@ || mkdir $@
 
-$(GAMES:rmc%=build/rmc%) : build
+$(GAMES:%=build/%) : build
 	$(LOG)
 	$Q- test -d $@ || mkdir $@
 
-$(GAMES:rmc%=szs-tools/rmc%) : szs-tools
+$(GAMES:%=szs-tools/%) : szs-tools
 	$(LOG)
 	$Q- test -d $@ || mkdir $@
 
