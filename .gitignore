@@ -1,4 +1,5 @@
 build
 bin
 szs-tools
+ld2wiki.gen
 *.edit-list

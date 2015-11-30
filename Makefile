@@ -9,12 +9,12 @@
 # Settings
 #==============================================================================
 
-ONLINE_REGION ?= 255
-ENABLE_CTWW ?= 1
-ENABLE_FILTER ?= 1
-ENABLE_BSHELL ?= 1
-ENABLE_SOM ?= 1
-ENABLE_CTS ?= 1
+ONLINE_REGION	?= 255
+ENABLE_CTWW	?= 1
+ENABLE_FILTER	?= 1
+ENABLE_BSHELL	?= 1
+ENABLE_SOM	?= 1
+ENABLE_CTS	?= 1
 
 #==============================================================================
 # Programs
@@ -91,12 +91,13 @@ help:
 	$Qecho "CT-CODE build system."
 	$Qecho " by Chadderz & Wiimm"
 	$Qecho ""
-	$Qecho "make all   - make all files for all regions (rmce,rmcj,rmcp)."
-	$Qecho "make rmcp  - make just the files for RMCP (or similar for other regions)."
-	$Qecho "make clean - remove all generated files."
+	$Qecho "make all      : Make all files for all regions (rmce,rmcj,rmcp)."
+	$Qecho "make rmc[ejp] : Make just the files for RMC[EJP]."
+	$Qecho "make rmck     : Make the files for RMCK (not included in all)."
+	$Qecho "make clean    : Remove all generated files."
 	$Qecho ""
-	$Qecho "all outputs go into the bin/rmcp/ directory (or similar for other regions)."
-	$Qecho "temprorary files go into the build/ directory."
+	$Qecho "All outputs go into the bin/ and szs-tools/ directories."
+	$Qecho "Temprorary files go into the build/ directory."
 
 all: $(ALL)
 
