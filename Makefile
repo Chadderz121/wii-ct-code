@@ -42,42 +42,35 @@ region	?= *
 BAD0	?= bad0
 BAD1	?= bad1
 TARGETS	?= bad0 bad1
-GAMES	?= rmce rmcj rmcp
+GAMES	?= rmce rmcj rmck rmcp
 
-SFLAGS += -mregnames
+SFLAGS	+= -mregnames
 
 ifeq ("$(region)","E")
-	game = rmce
-	TARGETDIR ?= bin/$(game)
-	SZSTOOLSDIR ?= szs-tools/$(game)
-	BUILD ?= build/$(game)
-	BUILD_ALL ?= build
-	SFLAGS += --defsym region=U -I $(BUILD)
-	ALL = $(BUILD) $(TARGETS)
+	game		:= rmce
+	ALL		:= $(BUILD) $(TARGETS)
 else ifeq ("$(region)","J")
-	game = rmcj
-	TARGETDIR ?= bin/$(game)
-	SZSTOOLSDIR ?= szs-tools/$(game)
-	BUILD ?= build/$(game)
-	BUILD_ALL ?= build
-	SFLAGS += --defsym region=J -I $(BUILD)
-	ALL = $(BUILD) $(TARGETS)
+	game		:= rmcj
+	ALL		:= $(BUILD) $(TARGETS)
+else ifeq ("$(region)","K")
+	game		:= rmck
+	ALL		:= $(BUILD) $(TARGETS)
 else ifeq ("$(region)","P")
-	game = rmcp
-	TARGETDIR ?= bin/$(game)
-	SZSTOOLSDIR ?= szs-tools/$(game)
-	BUILD ?= build/$(game)
-	BUILD_ALL ?= build
-	SFLAGS += --defsym region=P -I $(BUILD)
-	ALL = $(BUILD) $(TARGETS)
+	game		:= rmcp
+	ALL		:= $(BUILD) $(TARGETS)
 else ifeq ("$(region)","*")
-	ALL = rmce rmcj rmcp
-	# define some dummies to avoid warnings
-	TARGETDIR ?= bin/dummy
-	SZSTOOLSDIR ?= szs-tools/dummy
+	game		:= dummy
+	#ALL		:= $(GAMES)
+	ALL		:= rmce rmcj rmcp
 else
-	$(error 'region' is not 'E', 'J', 'P' or '*')
+	$(error 'region' is not 'E', 'J', 'K', 'P' or '*')
 endif
+
+TARGETDIR	?= bin/$(game)
+SZSTOOLSDIR	?= szs-tools/$(game)
+BUILD		?= build/$(game)
+BUILD_ALL	?= build
+SFLAGS		+= --defsym region=$(region) -I $(BUILD)
 
 SETTINGS := GAME=$(game) REGION=$(region) ONLINE_REGION=$(ONLINE_REGION) \
             ENABLE_CTWW=$(ENABLE_CTWW) \
@@ -92,13 +85,13 @@ SFLAGS += $(addprefix --defsym ,$(SETTINGS))
 #==============================================================================
 # Overall
 #==============================================================================
-.PHONY: help all clean allregions rmcp rmce rmcj
+.PHONY: help all clean allregions rmcp rmce rmck rmcj
 
 help:
 	$Qecho "CT-CODE build system."
-	$Qecho " by Chadderz"
+	$Qecho " by Chadderz & Wiimm"
 	$Qecho ""
-	$Qecho "make all   - make all files for all regions."
+	$Qecho "make all   - make all files for all regions (rmce,rmcj,rmcp)."
 	$Qecho "make rmcp  - make just the files for RMCP (or similar for other regions)."
 	$Qecho "make clean - remove all generated files."
 	$Qecho ""
@@ -114,6 +107,10 @@ rmce: bin/rmce build/rmce szs-tools/rmce
 rmcj: bin/rmcj build/rmcj szs-tools/rmcj
 	$(LOG)
 	$Q-make --no-print-directory region=J all
+
+rmck: bin/rmck build/rmck szs-tools/rmck
+	$(LOG)
+	$Q-make --no-print-directory region=K all
 
 rmcp: bin/rmcp build/rmcp szs-tools/rmcp
 	$(LOG)
