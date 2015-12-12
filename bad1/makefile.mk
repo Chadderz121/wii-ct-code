@@ -19,9 +19,9 @@ $(TARGETDIR)/ctgpr_code.tex0: $(BUILD)/ctgpr_code.o
 	$(LOG)
 	$Q$(OC) -O binary $< $@
 
-$(SZS_COPY:%=$(SZSTOOLSDIR)/%.bin) : $(BUILD)/$(notdir $@)
+$(SZS_COPY:%=$(SZSTOOLSDIR)/%.bin) : $(SZSTOOLSDIR)/%.bin : $(BUILD)/%.bin
 	$(LOG)
-	$Q cp $(BUILD)/$(notdir $@) $@
+	$Q cp $< $@
 	$Q chmod a-x $@
 
 $(SZSTOOLSDIR)/bad1code.bin : $(BUILD)/bad1.bin
