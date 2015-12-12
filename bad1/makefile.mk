@@ -17,16 +17,15 @@ bad1: bad1Code bad1Data $(TARGETDIR)/ctgpr_code.tex0 \
 
 $(TARGETDIR)/ctgpr_code.tex0: $(BUILD)/ctgpr_code.o
 	$(LOG)
-	$Q$(OC) -O binary $< $@
+	$Q$(OC) -O binary $< $@ && chmod a-x $@
 
 $(SZS_COPY:%=$(SZSTOOLSDIR)/%.bin) : $(SZSTOOLSDIR)/%.bin : $(BUILD)/%.bin
 	$(LOG)
 	$Q cp $< $@
-	$Q chmod a-x $@
 
 $(SZSTOOLSDIR)/bad1code.bin : $(BUILD)/bad1.bin
-	$Q head -c1824 $(BUILD)/bad1.bin >$@
-	$Q chmod a-x $@
+	$(LOG)
+	$Q head -c1824 $< >$@
 
 $(BUILD)/ctgpr_code.o: $(BAD1)/tex0.s $(BUILD)/bad1.bin
 	$(LOG)
@@ -34,13 +33,13 @@ $(BUILD)/ctgpr_code.o: $(BAD1)/tex0.s $(BUILD)/bad1.bin
 
 $(BUILD)/bad1.bin: $(BUILD)/bad1.elf
 	$(LOG)
-	$Q$(OC) -O binary $< $@	
+	$Q$(OC) -O binary $< $@ && chmod a-x $@
 
 $(BUILD)/bad1.elf: $(BUILD)/bad1code.o $(BUILD)/bad1data.o $(BUILD)/bad1.ld
 	$(LOG)
-	$Q$(LD) -L $(BAD1) -T $(BUILD)/bad1.ld $(BUILD)/bad1code.o $(BUILD)/bad1data.o -o $@
+	$Q$(LD) -L $(BAD1) -T $(BUILD)/bad1.ld $(BUILD)/bad1code.o $(BUILD)/bad1data.o -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/bad1.ld: $(BAD1)/bad1.ld $(game).ld
 	$(LOG)
 	$Qcat $^ > $@
-

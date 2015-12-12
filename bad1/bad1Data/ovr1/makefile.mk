@@ -14,11 +14,12 @@ $(BUILD_ALL)/kmph.bin: $(BAD1)/bad1Data/ovr1/kmph.dds
 
 $(BUILD)/ovr1.bin: $(BUILD)/ovr1.elf
 	$(LOG)
-	$Q$(OC) -O binary $< $@
+	$Q$(OC) -O binary $< $@ && chmod a-x $@
 
 $(BUILD)/ovr1.elf: $(BUILD)/ovr1.o $(BUILD)/ovr1.ld
 	$(LOG)
-	$Q$(LD) -L $(BAD1)/bad1Data/ovr1 -T $(BUILD)/ovr1.ld $< -o $@
+	$Q$(LD) -L $(BAD1)/bad1Data/ovr1 -T $(BUILD)/ovr1.ld $< -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/ovr1.o: $(BAD1)/bad1Data/ovr1/ctgp_overlay.s $(BUILD_ALL)/numberfont.bin $(BUILD_ALL)/kmph.bin
 	$(LOG)

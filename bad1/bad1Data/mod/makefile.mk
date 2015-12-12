@@ -16,11 +16,12 @@ SRC_MOD := \
 
 $(BUILD)/mod%.bin: $(BUILD)/mod%.elf
 	$(LOG)
-	$Q$(OC) -O binary $< $@
+	$Q$(OC) -O binary $< $@ && chmod a-x $@
 
 $(BUILD)/mod%.elf: $(BUILD)/mod%.elf.ld $(BUILD)/mod%.data.o $(BUILD)/mod.text.elf
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/mod$*.data.o $(BUILD)/mod.text.elf -o $@
+	$Q$(LD) -T $<  $(BUILD)/mod$*.data.o $(BUILD)/mod.text.elf -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/mod%.elf.ld: $(SRC_MOD) $(BUILD_ALL)/mod.elf.ld.inc $(BUILD)/mod%.inc $(game).ld
 	$(LOG)
@@ -57,7 +58,8 @@ $(BUILD_ALL)/mod.data.o.inc:
 
 $(BUILD)/mod.text.elf: $(BUILD)/mod.text.elf.ld $(BUILD)/mod1.text.o $(BUILD)/mod2.text.o
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/mod1.text.o $(BUILD)/mod2.text.o -o $@
+	$Q$(LD) -T $<  $(BUILD)/mod1.text.o $(BUILD)/mod2.text.o -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/mod.text.elf.ld: $(SRC_MOD) $(BUILD_ALL)/mod.text.elf.ld.inc $(BUILD)/mod_all.inc $(game).ld
 	$(LOG)

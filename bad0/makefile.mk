@@ -15,23 +15,24 @@ bad0: bad0Code bad0Data $(TARGETDIR)/boot_code.bin $(TARGETDIR)/boot_data.bin \
 
 $(TARGETDIR)/boot_code.bin: $(BUILD)/bad0.elf
 	$(LOG)
-	$Q$(OC) -O binary -j .text $< $@
+	$Q$(OC) -O binary -j .text $< $@ && chmod a-x $@
 
 $(TARGETDIR)/boot_data.bin: $(BUILD)/bad0.elf
 	$(LOG)
-	$Q$(OC) -O binary -j .data $< $@
+	$Q$(OC) -O binary -j .data $< $@ && chmod a-x $@
 
 $(SZSTOOLSDIR)/boot_code.bin: $(TARGETDIR)/boot_code.bin
 	$(LOG)
-	$Qcp $(TARGETDIR)/boot_code.bin $(SZSTOOLSDIR)/
+	$Qcp $< $@
 
 $(SZSTOOLSDIR)/boot_data.bin: $(TARGETDIR)/boot_data.bin
 	$(LOG)
-	$Qcp $(TARGETDIR)/boot_data.bin $(SZSTOOLSDIR)/
+	$Qcp $< $@
 
 $(BUILD)/bad0.elf: $(BUILD)/bad0code.o $(BUILD)/bad0data.o $(BUILD)/bad0.ld
 	$(LOG)
-	$Q$(LD) -L $(BAD0) -T $(BUILD)/bad0.ld $(BUILD)/bad0code.o $(BUILD)/bad0data.o -o $@
+	$Q$(LD) -L $(BAD0) -T $(BUILD)/bad0.ld $(BUILD)/bad0code.o $(BUILD)/bad0data.o -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/bad0.ld: $(BAD0)/bad0.ld $(game).ld
 	$(LOG)

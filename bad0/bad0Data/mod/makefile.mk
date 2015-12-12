@@ -5,11 +5,12 @@ SRC_MOD0 := \
 
 $(BUILD)/mod0.bin: $(BUILD)/m0d.elf
 	$(LOG)
-	$Q$(OC) -O binary $< $@
+	$Q$(OC) -O binary $< $@ && chmod a-x $@
 
 $(BUILD)/m0d.elf: $(BUILD)/m0d.elf.ld $(BUILD)/m0d.data.o $(BUILD)/m0d.text.elf
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/m0d.data.o $(BUILD)/m0d.text.elf -o $@
+	$Q$(LD) -T $<  $(BUILD)/m0d.data.o $(BUILD)/m0d.text.elf -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/m0d.elf.ld: $(SRC_MOD0) $(BUILD_ALL)/m0d.elf.ld.inc $(BUILD)/m0d.inc $(game).ld
 	$(LOG)
@@ -46,7 +47,8 @@ $(BUILD_ALL)/m0d.data.o.inc:
 
 $(BUILD)/m0d.text.elf: $(BUILD)/m0d.text.elf.ld $(BUILD)/m0d.text.o
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/m0d.text.o -o $@
+	$Q$(LD) -T $<  $(BUILD)/m0d.text.o -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/m0d.text.elf.ld: $(SRC_MOD0) $(BUILD_ALL)/m0d.text.elf.ld.inc $(BUILD)/m0d_all.inc $(game).ld
 	$(LOG)
