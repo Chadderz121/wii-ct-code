@@ -5,17 +5,18 @@ SRC_MOD0 := \
 
 $(BUILD)/mod0.bin: $(BUILD)/m0d.elf
 	$(LOG)
-	$Q$(OC) -O binary $< $@
+	$Q$(OC) -O binary $< $@ && chmod a-x $@
 
 $(BUILD)/m0d.elf: $(BUILD)/m0d.elf.ld $(BUILD)/m0d.data.o $(BUILD)/m0d.text.elf
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/m0d.data.o $(BUILD)/m0d.text.elf -o $@
+	$Q$(LD) -T $<  $(BUILD)/m0d.data.o $(BUILD)/m0d.text.elf -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/m0d.elf.ld: $(SRC_MOD0) $(BUILD_ALL)/m0d.elf.ld.inc $(BUILD)/m0d.inc $(game).ld
 	$(LOG)
 	$Qecho "SECTIONS { .data : { *(.data); }" > $@
 	$Qcat $(BUILD_ALL)/m0d.elf.ld.inc $(BUILD)/m0d.inc $(SRC_MOD0) \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0data/mod - >> $@
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0Data/mod - >> $@
 	$Qecho "mod_end = .; /DISCARD/ : { *(*); } }" >> $@
 	$Qcat $(game).ld >> $@
 
@@ -30,7 +31,7 @@ $(BUILD)/m0d.data.o: $(BUILD)/m0d.data.s
 $(BUILD)/m0d.data.s: $(BUILD)/m0d.data.i
 	$(LOG)
 	$Qcat $< \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0data/mod - \
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0Data/mod - \
 	| sed "s/;/\n/g" > $@
 
 $(BUILD)/m0d.data.i: $(SRC_MOD0) $(BUILD_ALL)/m0d.data.o.inc $(BUILD)/m0d.inc
@@ -46,13 +47,14 @@ $(BUILD_ALL)/m0d.data.o.inc:
 
 $(BUILD)/m0d.text.elf: $(BUILD)/m0d.text.elf.ld $(BUILD)/m0d.text.o
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/m0d.text.o -o $@
+	$Q$(LD) -T $<  $(BUILD)/m0d.text.o -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/m0d.text.elf.ld: $(SRC_MOD0) $(BUILD_ALL)/m0d.text.elf.ld.inc $(BUILD)/m0d_all.inc $(game).ld
 	$(LOG)
 	$Qecho "SECTIONS {" > $@
 	$Qcat $(BUILD_ALL)/m0d.text.elf.ld.inc $(BUILD)/m0d_all.inc $(SRC_MOD0) \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0data/mod - >> $@
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0Data/mod - >> $@
 	$Qecho "}" >> $@
 	$Qcat $(game).ld >> $@
 
@@ -67,7 +69,7 @@ $(BUILD)/m0d.text.o: $(BUILD)/m0d.text.s
 $(BUILD)/m0d.text.s: $(BUILD)/m0d.text.i
 	$(LOG)
 	$Qcat $< \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0data/mod - \
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD0)/bad0Data/mod - \
 	| sed "s/;/\n/g" > $@
 
 $(BUILD)/m0d.text.i: $(SRC_MOD0) $(BUILD_ALL)/m0d.text.o.inc $(BUILD)/m0d.inc

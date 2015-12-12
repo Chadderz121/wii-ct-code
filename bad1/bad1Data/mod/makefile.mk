@@ -16,17 +16,18 @@ SRC_MOD := \
 
 $(BUILD)/mod%.bin: $(BUILD)/mod%.elf
 	$(LOG)
-	$Q$(OC) -O binary $< $@
+	$Q$(OC) -O binary $< $@ && chmod a-x $@
 
 $(BUILD)/mod%.elf: $(BUILD)/mod%.elf.ld $(BUILD)/mod%.data.o $(BUILD)/mod.text.elf
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/mod$*.data.o $(BUILD)/mod.text.elf -o $@
+	$Q$(LD) -T $<  $(BUILD)/mod$*.data.o $(BUILD)/mod.text.elf -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/mod%.elf.ld: $(SRC_MOD) $(BUILD_ALL)/mod.elf.ld.inc $(BUILD)/mod%.inc $(game).ld
 	$(LOG)
 	$Qecho "SECTIONS { .data : { *(.data); }" > $@
 	$Qcat $(BUILD_ALL)/mod.elf.ld.inc $(BUILD)/mod$*.inc $(SRC_MOD) \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - >> $@
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - >> $@
 	$Qecho "mod_end = .; /DISCARD/ : { *(*); } }" >> $@
 	$Qcat $(game).ld >> $@
 
@@ -41,7 +42,7 @@ $(BUILD)/mod%.data.o: $(BUILD)/mod%.data.s
 $(BUILD)/mod%.data.s: $(BUILD)/mod%.data.i
 	$(LOG)
 	$Qcat $< \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - \
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - \
 	| sed "s/;/\n/g" > $@
 
 $(BUILD)/mod%.data.i: $(SRC_MOD) $(BUILD_ALL)/mod.data.o.inc $(BUILD)/mod%.inc
@@ -57,13 +58,14 @@ $(BUILD_ALL)/mod.data.o.inc:
 
 $(BUILD)/mod.text.elf: $(BUILD)/mod.text.elf.ld $(BUILD)/mod1.text.o $(BUILD)/mod2.text.o
 	$(LOG)
-	$Q$(LD) -T $<  $(BUILD)/mod1.text.o $(BUILD)/mod2.text.o -o $@
+	$Q$(LD) -T $<  $(BUILD)/mod1.text.o $(BUILD)/mod2.text.o -o $@ \
+		&& chmod a-x $@
 
 $(BUILD)/mod.text.elf.ld: $(SRC_MOD) $(BUILD_ALL)/mod.text.elf.ld.inc $(BUILD)/mod_all.inc $(game).ld
 	$(LOG)
 	$Qecho "SECTIONS {" > $@
 	$Qcat $(BUILD_ALL)/mod.text.elf.ld.inc $(BUILD)/mod_all.inc $(SRC_MOD) \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - >> $@
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - >> $@
 	$Qecho "}" >> $@
 	$Qcat $(game).ld >> $@
 
@@ -78,7 +80,7 @@ $(BUILD)/mod%.text.o: $(BUILD)/mod%.text.s
 $(BUILD)/mod%.text.s: $(BUILD)/mod%.text.i
 	$(LOG)
 	$Qcat $< \
-	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1data/mod - \
+	| $(CC) -E -P $(addprefix -D,$(SETTINGS)) -I$(BAD1)/bad1Data/mod - \
 	| sed "s/;/\n/g" > $@
 
 $(BUILD)/mod%.text.i: $(SRC_MOD) $(BUILD_ALL)/mod.text.o.inc $(BUILD)/mod%.inc

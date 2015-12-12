@@ -6,9 +6,10 @@ devkitpro can be downloaded at: http://sourceforge.net/projects/devkitpro/
 To build the project, open a terminal in this directory and use the following
 commands:
     make       - explains the build system.
-    make all   - builds all regions.
+    make all   - builds all regions,e except RMCK.
     make rmce  - makes the mode for RMCE only.
     make rmcj  - makes the mode for RMCJ only.
+    make rmck  - makes the mode for RMCK only (adaption planned).
     make rmcp  - makes the mode for RMCP only.
     make clean - deletes all generate files.
 

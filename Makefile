@@ -1,5 +1,6 @@
 #==============================================================================
 # makefile by Alex Chadwick
+# 'SZSTOOLSDIR' extention by Dirk Clemens (Wiimm)
 #
 # makefile script for the CTGP-R Mario Kart Wii modification software.
 #==============================================================================
@@ -9,11 +10,11 @@
 #==============================================================================
 
 ONLINE_REGION ?= 255
-ENABLE_CTWW ?= 1
+ENABLE_CTWW   ?= 1
 ENABLE_FILTER ?= 1
 ENABLE_BSHELL ?= 1
-ENABLE_SOM ?= 1
-ENABLE_CTS ?= 1
+ENABLE_SOM    ?= 1
+ENABLE_CTS    ?= 1
 
 #==============================================================================
 # Programs
@@ -28,6 +29,7 @@ CC = $(PREFIX)gcc
 LD = $(PREFIX)ld
 OD = $(PREFIX)objdump
 OC = $(PREFIX)objcopy
+MKDIR = test -d $@ || mkdir $@
 
 Q ?= @
 LOG ?= @echo $@
@@ -37,39 +39,39 @@ LOG ?= @echo $@
 #==============================================================================
 # Output configuration
 #==============================================================================
-region ?= *
-BAD0 ?= bad0
-BAD1 ?= bad1
+region  ?= *
+BAD0    ?= bad0
+BAD1    ?= bad1
 TARGETS ?= bad0 bad1
+GAMES   ?= rmce rmcj rmck rmcp
 
 SFLAGS += -mregnames
 
 ifeq ("$(region)","E")
-	game = rmce
-	TARGETDIR ?= bin/$(game)
-	BUILD ?= build/$(game)
-	BUILD_ALL ?= build
-	SFLAGS += --defsym region=U -I $(BUILD)
-	ALL = $(BUILD) $(TARGETS)
+	game  := rmce
+	ALL   := $(BUILD) $(TARGETS)
 else ifeq ("$(region)","J")
-	game = rmcj
-	TARGETDIR ?= bin/$(game)
-	BUILD ?= build/$(game)
-	BUILD_ALL ?= build
-	SFLAGS += --defsym region=J -I $(BUILD)
-	ALL = $(BUILD) $(TARGETS)
+	game  := rmcj
+	ALL   := $(BUILD) $(TARGETS)
+else ifeq ("$(region)","K")
+	game  := rmck
+	ALL   := $(BUILD) $(TARGETS)
 else ifeq ("$(region)","P")
-	game = rmcp
-	TARGETDIR ?= bin/$(game)
-	BUILD ?= build/$(game)
-	BUILD_ALL ?= build
-	SFLAGS += --defsym region=P -I $(BUILD)
-	ALL = $(BUILD) $(TARGETS)
+	game  := rmcp
+	ALL   := $(BUILD) $(TARGETS)
 else ifeq ("$(region)","*")
-	ALL = rmce rmcj rmcp
+	game  := dummy
+	# TODO: Add rmck when it works.
+	ALL   := rmce rmcj rmcp
 else
-	$(error 'region' is not 'E', 'J', 'P' or '*')
+	$(error 'region' is not 'E', 'J', 'K', 'P' or '*')
 endif
+
+TARGETDIR   ?= bin/$(game)
+SZSTOOLSDIR ?= szs-tools/$(game)
+BUILD       ?= build/$(game)
+BUILD_ALL   ?= build
+SFLAGS      += --defsym region=$(region) -I $(BUILD)
 
 SETTINGS := GAME=$(game) REGION=$(region) ONLINE_REGION=$(ONLINE_REGION) \
             ENABLE_CTWW=$(ENABLE_CTWW) \
@@ -84,62 +86,61 @@ SFLAGS += $(addprefix --defsym ,$(SETTINGS))
 #==============================================================================
 # Overall
 #==============================================================================
-.PHONY: help all clean allregions rmcp rmce rmcj
+.PHONY: help all clean allregions rmcp rmce rmck rmcj
 
 help:
 	$Qecho "CT-CODE build system."
-	$Qecho " by Chadderz"
+	$Qecho " by Chadderz & Wiimm"
 	$Qecho ""
-	$Qecho "make all   - make all files for all regions."
-	$Qecho "make rmcp  - make just the files for RMCP (or similar for other regions)."
-	$Qecho "make clean - remove all generated files."
+	$Qecho "make all      : Make all files for all regions (rmce,rmcj,rmcp)."
+	$Qecho "make rmc[ejp] : Make just the files for RMC[EJP]."
+	$Qecho "make rmck     : Make the files for RMCK (not included in all)."
+	$Qecho "make clean    : Remove all generated files."
 	$Qecho ""
-	$Qecho "all outputs go into the bin/rmcp/ directory (or similar for other regions)."
-	$Qecho "temprorary files go into the build/ directory."
+	$Qecho "All outputs go into the bin/ and szs-tools/ directories."
+	$Qecho "Temprorary files go into the build/ directory."
 
 all: $(ALL)
 
-rmce: bin/rmce build/rmce
+rmce: bin/rmce build/rmce szs-tools/rmce
 	$(LOG)
-	$Q-make --no-print-directory region=E all
-rmcj: bin/rmcj build/rmcj
-	$(LOG)
-	$Q-make --no-print-directory region=J all
-rmcp: bin/rmcp build/rmcp
-	$(LOG)
-	$Q-make --no-print-directory region=P all
+	+$Q-$(MAKE) --no-print-directory region=E all
 
-bin/rmce: bin
+rmcj: bin/rmcj build/rmcj szs-tools/rmcj
 	$(LOG)
-	$Q-mkdir $@
-bin/rmcj: bin
-	$(LOG)
-	$Q-mkdir $@
-bin/rmcp: bin
-	$(LOG)
-	$Q-mkdir $@
+	+$Q-$(MAKE) --no-print-directory region=J all
 
-bin:
+rmck: bin/rmck build/rmck szs-tools/rmck
 	$(LOG)
-	$Q-mkdir $@
+	+$Q-$(MAKE) --no-print-directory region=K all
 
-build/rmce: build
+rmcp: bin/rmcp build/rmcp szs-tools/rmcp
 	$(LOG)
-	$Q-mkdir $@
-build/rmcj: build
-	$(LOG)
-	$Q-mkdir $@
-build/rmcp: build
-	$(LOG)
-	$Q-mkdir $@
+	+$Q-$(MAKE) --no-print-directory region=P all
 
-build:
-	$(LOG)
-	$Q-mkdir $@
+#--- create directories
 
-clean: 
+$(GAMES:%=bin/%) : bin
 	$(LOG)
-	$Q-rm -rf build bin
+	$Q-$(MKDIR)
+
+$(GAMES:%=build/%) : build
+	$(LOG)
+	$Q-$(MKDIR)
+
+$(GAMES:%=szs-tools/%) : szs-tools
+	$(LOG)
+	$Q-$(MKDIR)
+
+bin build szs-tools:
+	$(LOG)
+	$Q-$(MKDIR)
+
+#--- clean
+
+clean:
+	$(LOG)
+	$Q-rm -rf build bin szs-tools
 
 #==============================================================================
 # bad0
