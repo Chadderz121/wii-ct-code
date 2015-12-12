@@ -4,7 +4,7 @@
 #
 # Generates ctgpr_code.tex0, an injected code which enables the ctgp-r
 #==============================================================================
-.PHONY: bad1 
+.PHONY: bad1
 
 # list of files that can be copied to szs-tools
 SZS_COPY := mod1 mod2 ovr1

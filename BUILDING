@@ -60,7 +60,7 @@ SETTING=VALUE to the make rules (e.g. make all LOG=).
     Q      - prefix to all build commands (default @ to supress logging).
     PREFIX - prefix to all binutils tools (default powerpc-eabi-).
 
-The build can be speed up significantly using multiple threads by appending the
+The build can be sped up significantly using multiple threads by appending the
 -j flag to the make commands.
 
 Each directory contains a file called makefile.mk, which contains instructions

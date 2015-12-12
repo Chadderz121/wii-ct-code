@@ -1,7 +1,7 @@
 #==============================================================================
 # bad0/bad0Data/makefile by Alex Chadwick
 #
-# Generates bad0Data.bin, data to be inserted into the main.dol to load 
+# Generates bad0data.bin, data to be inserted into the main.dol to load
 # ctgpr_code.tex0
 #==============================================================================
 .PHONY: bad0Data

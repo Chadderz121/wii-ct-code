@@ -9,12 +9,12 @@
 # Settings
 #==============================================================================
 
-ONLINE_REGION	?= 255
-ENABLE_CTWW	?= 1
-ENABLE_FILTER	?= 1
-ENABLE_BSHELL	?= 1
-ENABLE_SOM	?= 1
-ENABLE_CTS	?= 1
+ONLINE_REGION ?= 255
+ENABLE_CTWW   ?= 1
+ENABLE_FILTER ?= 1
+ENABLE_BSHELL ?= 1
+ENABLE_SOM    ?= 1
+ENABLE_CTS    ?= 1
 
 #==============================================================================
 # Programs
@@ -29,6 +29,7 @@ CC = $(PREFIX)gcc
 LD = $(PREFIX)ld
 OD = $(PREFIX)objdump
 OC = $(PREFIX)objcopy
+MKDIR = test -d $@ || mkdir $@
 
 Q ?= @
 LOG ?= @echo $@
@@ -38,39 +39,39 @@ LOG ?= @echo $@
 #==============================================================================
 # Output configuration
 #==============================================================================
-region	?= *
-BAD0	?= bad0
-BAD1	?= bad1
-TARGETS	?= bad0 bad1
-GAMES	?= rmce rmcj rmck rmcp
+region  ?= *
+BAD0    ?= bad0
+BAD1    ?= bad1
+TARGETS ?= bad0 bad1
+GAMES   ?= rmce rmcj rmck rmcp
 
-SFLAGS	+= -mregnames
+SFLAGS += -mregnames
 
 ifeq ("$(region)","E")
-	game		:= rmce
-	ALL		:= $(BUILD) $(TARGETS)
+	game  := rmce
+	ALL   := $(BUILD) $(TARGETS)
 else ifeq ("$(region)","J")
-	game		:= rmcj
-	ALL		:= $(BUILD) $(TARGETS)
+	game  := rmcj
+	ALL   := $(BUILD) $(TARGETS)
 else ifeq ("$(region)","K")
-	game		:= rmck
-	ALL		:= $(BUILD) $(TARGETS)
+	game  := rmck
+	ALL   := $(BUILD) $(TARGETS)
 else ifeq ("$(region)","P")
-	game		:= rmcp
-	ALL		:= $(BUILD) $(TARGETS)
+	game  := rmcp
+	ALL   := $(BUILD) $(TARGETS)
 else ifeq ("$(region)","*")
-	game		:= dummy
-	#ALL		:= $(GAMES)
-	ALL		:= rmce rmcj rmcp
+	game  := dummy
+	# TODO: Add rmck when it works.
+	ALL   := rmce rmcj rmcp
 else
 	$(error 'region' is not 'E', 'J', 'K', 'P' or '*')
 endif
 
-TARGETDIR	?= bin/$(game)
-SZSTOOLSDIR	?= szs-tools/$(game)
-BUILD		?= build/$(game)
-BUILD_ALL	?= build
-SFLAGS		+= --defsym region=$(region) -I $(BUILD)
+TARGETDIR   ?= bin/$(game)
+SZSTOOLSDIR ?= szs-tools/$(game)
+BUILD       ?= build/$(game)
+BUILD_ALL   ?= build
+SFLAGS      += --defsym region=$(region) -I $(BUILD)
 
 SETTINGS := GAME=$(game) REGION=$(region) ONLINE_REGION=$(ONLINE_REGION) \
             ENABLE_CTWW=$(ENABLE_CTWW) \
@@ -103,41 +104,41 @@ all: $(ALL)
 
 rmce: bin/rmce build/rmce szs-tools/rmce
 	$(LOG)
-	$Q-make --no-print-directory region=E all
+	+$Q-$(MAKE) --no-print-directory region=E all
 
 rmcj: bin/rmcj build/rmcj szs-tools/rmcj
 	$(LOG)
-	$Q-make --no-print-directory region=J all
+	+$Q-$(MAKE) --no-print-directory region=J all
 
 rmck: bin/rmck build/rmck szs-tools/rmck
 	$(LOG)
-	$Q-make --no-print-directory region=K all
+	+$Q-$(MAKE) --no-print-directory region=K all
 
 rmcp: bin/rmcp build/rmcp szs-tools/rmcp
 	$(LOG)
-	$Q-make --no-print-directory region=P all
+	+$Q-$(MAKE) --no-print-directory region=P all
 
 #--- create directories
 
 $(GAMES:%=bin/%) : bin
 	$(LOG)
-	$Q- test -d $@ || mkdir $@
+	$Q-$(MKDIR)
 
 $(GAMES:%=build/%) : build
 	$(LOG)
-	$Q- test -d $@ || mkdir $@
+	$Q-$(MKDIR)
 
 $(GAMES:%=szs-tools/%) : szs-tools
 	$(LOG)
-	$Q- test -d $@ || mkdir $@
+	$Q-$(MKDIR)
 
 bin build szs-tools:
 	$(LOG)
-	$Q-test -d $@ || mkdir $@
+	$Q-$(MKDIR)
 
 #--- clean
 
-clean: 
+clean:
 	$(LOG)
 	$Q-rm -rf build bin szs-tools
 

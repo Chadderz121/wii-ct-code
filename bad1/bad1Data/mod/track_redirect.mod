@@ -428,7 +428,7 @@ MOD_REL(
  * course is played next upon selecting "Next Course". Not only do we need to make
  * custom tracks poolable (rather than just their special slot IDs), we must also
  * redirect the "Next Course" handler to take advantage of CT-CODE.
- * 
+ *
  * For reference: "Random" picks the 1st course, pools 31 more in subsequent order,
  * then randomly permutes each pooled course with another. Consequently, on CT-CODE,
  * courses that are 32+ slots apart from each other are never pooled together.
@@ -462,7 +462,7 @@ MOD_REL(
         /* We adjust cup wrapping depending on whether the first course belongs to a CT
          * cup or a Nintendo cup, thus restricting the entire pool to the same category.
          * This helps ensure that Random VS will only pick CTs; never a Nintendo course.
-         * 
+         *
          * r9/r10: the lower/upper cup boundaries. r29: cup index of the 1st course pick.
          * r0: VS pool capacity. The game normally adjusts it to the number of courses
          *     unlocked (up to 32). But why check for cup unlocks when we have CT-CODE!
