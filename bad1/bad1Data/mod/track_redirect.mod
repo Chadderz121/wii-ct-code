@@ -56,16 +56,6 @@ MOD_REL(
         lwz r4,raceCupTable@l(r4);
 )
 MOD_REL(
-    mod_raceCupTable_9,
-    mod_raceCupTable_9_addr,
-        lis r4,raceCupTable@ha;
-)
-MOD_REL(
-    mod_raceCupTable_10,
-    mod_raceCupTable_9_addr + 0xc,
-        lwz r4,raceCupTable@l(r4);
-)
-MOD_REL(
     mod_raceCupTable_11,
     mod_raceCupTable_11_addr,
         lis r5,raceCupTable@ha;

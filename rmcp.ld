@@ -26,7 +26,6 @@ PROVIDE(mod_raceTrackNameTable_1_addr = 0x80540848);
 PROVIDE(mod_raceTrackNameTable_4_addr = 0x80541b98);
 PROVIDE(mod2_45_addr = 0x80549134);
 PROVIDE(mod2_13_addr = 0x8054fec0);
-PROVIDE(mod_raceCupTable_9_addr = 0x80552d90);
 PROVIDE(mod_currentCourse_2_addr = 0x80553df8);
 PROVIDE(displayTimer = 0x805C4380);
 PROVIDE(mod_redirect_course_6_addr = 0x805e1e94);
