@@ -236,7 +236,7 @@ MOD_DOL(
             bne-    0b;
 
         addi    r31,r31,1;
-        stw     r31,3576(r5);
+        stw     r31,pageNumber@l(r5);
     0:  lis     r5,-32629;
         blr;
 )
